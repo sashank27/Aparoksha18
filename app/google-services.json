@@ -1,0 +1,94 @@
+{
+  "project_info": {
+    "project_number": "916688315956",
+    "firebase_url": "https://aparoksha-18.firebaseio.com",
+    "project_id": "aparoksha-18",
+    "storage_bucket": "aparoksha-18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916688315956:android:6d0242a7f55f8090",
+        "android_client_info": {
+          "package_name": "org.aparoksha18.organisers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916688315956-c3s39ih6vn6opbqg6m9hbu4dj1qkgp2r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.aparoksha18.organisers",
+            "certificate_hash": "880dd5ef21020250daac395f997f4e6acaf50b2f"
+          }
+        },
+        {
+          "client_id": "916688315956-hd5orjv892sanildqk81hegu1q0tp7tm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.aparoksha18.organisers",
+            "certificate_hash": "8d63d0b03c05b12520d561eebed3802253aa528b"
+          }
+        },
+        {
+          "client_id": "916688315956-qgmpdf022bscrivcvmjlpjmfvfsg3tt2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9dD06257IrsIu3yEw7k8pk2oXARyuSCA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916688315956-qgmpdf022bscrivcvmjlpjmfvfsg3tt2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916688315956:android:a3e8e5b09700ee54",
+        "android_client_info": {
+          "package_name": "org.aparoksha.app18"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916688315956-qgmpdf022bscrivcvmjlpjmfvfsg3tt2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9dD06257IrsIu3yEw7k8pk2oXARyuSCA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

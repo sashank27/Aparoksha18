@@ -12,12 +12,15 @@ class MainActivity : AppCompatActivity() {
 
         when (item.itemId) {
             R.id.navigation_home -> {
+                switchFragment(HomeFragment())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_schedule -> {
+                switchFragment(HomeFragment())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
+                switchFragment(UpdatesFragment())
                 return@OnNavigationItemSelectedListener true
             }
         }
