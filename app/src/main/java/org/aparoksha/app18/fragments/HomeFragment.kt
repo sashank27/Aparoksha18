@@ -1,10 +1,11 @@
-package org.aparoksha.app18
+package org.aparoksha.app18.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import org.aparoksha.app18.R
 
 /**
  * Created by sashank on 3/3/18.

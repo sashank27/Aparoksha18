@@ -1,4 +1,4 @@
-package org.aparoksha.app18
+package org.aparoksha.app18.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,6 +10,9 @@ import android.widget.LinearLayout
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_updates.*
+import org.aparoksha.app18.Notification
+import org.aparoksha.app18.NotificationAdapter
+import org.aparoksha.app18.R
 
 /**
  * Created by sashank on 4/3/18.
