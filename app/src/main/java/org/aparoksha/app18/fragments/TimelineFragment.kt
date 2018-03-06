@@ -1,5 +1,6 @@
 package org.aparoksha.app18.fragments
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -8,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_timeline.*
 import org.aparoksha.app18.R
+import org.aparoksha.app18.ViewModels.EventsViewModel
 import org.aparoksha.app18.adapters.TimelineRecyclerAdapter
 import org.aparoksha.app18.models.Aparoksha
+import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.models.TimelineEvents
 import org.aparoksha.app18.models.Timepoint
 import org.aparoksha.app18.utils.AppDB
@@ -21,7 +24,8 @@ import org.aparoksha.app18.utils.AppDB
 
 class TimelineFragment: Fragment() {
 
-    lateinit var timelineRecyclerAdapter: TimelineRecyclerAdapter
+    private lateinit var timelineRecyclerAdapter: TimelineRecyclerAdapter
+    private lateinit var coreViewModel: EventsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_timeline,container,false)
@@ -30,20 +34,29 @@ class TimelineFragment: Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val appDb = AppDB.getInstance(context)
-        val list = appDb.getAllEvents()
-        list.sortBy { it.timestamp }
-        var size = 0
+        coreViewModel = EventsViewModel.create(activity.application)
+        coreViewModel.getFromDB(context)
+        coreViewModel.getEvents(context,activity)
 
         timelineRecyclerAdapter = TimelineRecyclerAdapter()
         timeline_recycler_view.adapter = timelineRecyclerAdapter
         timeline_recycler_view.layoutManager = LinearLayoutManager(context)
-        timelineRecyclerAdapter.addWeatherHeader(Aparoksha("Aparoksha Events","TechFest","16-18 March","IIIT Allahabad"))
-        for (i in list) {
-            size++
-            timelineRecyclerAdapter.addTimepoint(Timepoint("test"))
-            timelineRecyclerAdapter.addWeather(TimelineEvents(i.name,i.description,i.timestamp,i.imageUrl,size == list.size))
-        }
 
+        coreViewModel.events.observe(this, Observer {
+            it?.let {
+                if (!it.isEmpty()) {
+                    timelineRecyclerAdapter.reset()
+                    val list: MutableList<Event> = it as MutableList<Event>
+                    list.sortBy { it.timestamp }
+                    timelineRecyclerAdapter.addHeader(Aparoksha("Aparoksha Events","TechFest","16-18 March","IIIT Allahabad"))
+                    var size = 0
+                    for (i in it) {
+                        size++
+                        timelineRecyclerAdapter.addTimepoint(Timepoint("test"))
+                        timelineRecyclerAdapter.addEvent(TimelineEvents(i.name, i.description, i.timestamp, i.imageUrl, size == it.size))
+                    }
+                }
+            }
+        })
     }
 }

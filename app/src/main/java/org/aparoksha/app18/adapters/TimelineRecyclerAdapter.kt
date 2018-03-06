@@ -33,12 +33,12 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     override fun getItemViewType(position: Int) = items[position].getViewType()
 
-    fun addWeatherHeader(item: Aparoksha) {
+    fun addHeader(item: Aparoksha) {
         this.items.add(item)
         notifyDataSetChanged()
     }
 
-    fun addWeather(item: TimelineEvents) {
+    fun addEvent(item: TimelineEvents) {
         this.items.add(item)
         notifyDataSetChanged()
     }
@@ -48,4 +48,7 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         notifyDataSetChanged()
     }
 
+    fun reset() {
+        this.items.removeAll(items)
+    }
 }

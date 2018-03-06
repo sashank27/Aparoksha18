@@ -13,6 +13,7 @@ import org.aparoksha.app18.MainActivity
 import org.aparoksha.app18.utils.AppDB
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.*
+import org.aparoksha.app18.utils.showAlert
 import org.jetbrains.anko.*
 
 class SplashActivity : AppCompatActivity(), AnkoLogger {
@@ -38,7 +39,7 @@ class SplashActivity : AppCompatActivity(), AnkoLogger {
             }
             else -> {
                 //animationView.cancelAnimation()
-                showAlert()
+                showAlert(this)
             }
         }
     }
@@ -47,7 +48,6 @@ class SplashActivity : AppCompatActivity(), AnkoLogger {
         doAsync {
             val appDB = AppDB.getInstance(this@SplashActivity)
             val client = OkHttpClient()
-
 
             try {
                 val request = Request.Builder()
@@ -119,7 +119,7 @@ class SplashActivity : AppCompatActivity(), AnkoLogger {
                 uiThread {
                     if (!response.isSuccessful || !response2.isSuccessful || !response3.isSuccessful || !response4.isSuccessful || !response5.isSuccessful) {
                         if (sharedPrefs.getBoolean("firstrun", true)) {
-                            showAlert()
+                            showAlert(this@SplashActivity)
                         } else {
                             showFinishedAnimation()
                         }
@@ -132,23 +132,13 @@ class SplashActivity : AppCompatActivity(), AnkoLogger {
                     error(exception)
                     //animationView.cancelAnimation()
                     if (sharedPrefs.getBoolean("firstrun", true)) {
-                        showAlert()
+                        showAlert(this@SplashActivity)
                     } else {
                         showFinishedAnimation()
                     }
                 }
             }
         }
-    }
-
-
-    private fun showAlert() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("No internet Connection")
-        builder.setMessage("Please turn on internet connection to continue. Internet is needed at least once before running the app.")
-        builder.setNegativeButton("close") { _, _ -> finish() }
-        val alertDialog = builder.create()
-        alertDialog.show()
     }
 
     private fun showFinishedAnimation() {

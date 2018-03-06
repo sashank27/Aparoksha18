@@ -12,7 +12,7 @@ class AppDB private constructor(context: Context) {
     private val waspDB: WaspDb = WaspFactory.openOrCreateDatabase(
             context.filesDir.path,
             "eventDB",
-            "effervescence17")
+            "aparoksha18")
 
     private val eventHash = waspDB.openOrCreateHash("events")
     private val bookmarksHash = waspDB.openOrCreateHash("bookmarks")
