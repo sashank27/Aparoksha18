@@ -27,10 +27,10 @@ class TimelineFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_timeline,container,false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val appDb = AppDB.getInstance(context)
+        val appDb = AppDB.getInstance(context!!)
         val list = appDb.getAllEvents()
         list.sortBy { it.timestamp }
         var size = 0

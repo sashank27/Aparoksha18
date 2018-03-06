@@ -25,7 +25,7 @@ class UpdatesFragment :Fragment() {
         return inflater.inflate(R.layout.fragment_updates, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val mFirebaseDB = FirebaseDatabase.getInstance()

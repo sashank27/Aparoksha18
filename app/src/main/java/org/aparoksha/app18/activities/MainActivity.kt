@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.fragments.HomeFragment
+import org.aparoksha.app18.fragments.TalksFragment
 import org.aparoksha.app18.fragments.TimelineFragment
 import org.aparoksha.app18.fragments.UpdatesFragment
 
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_schedule -> {
-                switchFragment(TimelineFragment())
+                switchFragment(TalksFragment())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
