@@ -1,4 +1,4 @@
-package org.aparoksha.app18
+package org.aparoksha.app18.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import kotlinx.android.synthetic.main.notification_container.view.*
+import org.aparoksha.app18.R
+import org.aparoksha.app18.models.Notification
 import java.text.SimpleDateFormat
 import java.util.*
 

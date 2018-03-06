@@ -10,8 +10,8 @@ import android.widget.LinearLayout
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_updates.*
-import org.aparoksha.app18.Notification
-import org.aparoksha.app18.NotificationAdapter
+import org.aparoksha.app18.models.Notification
+import org.aparoksha.app18.adapters.NotificationAdapter
 import org.aparoksha.app18.R
 
 /**

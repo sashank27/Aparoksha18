@@ -9,7 +9,6 @@ import android.os.Bundle
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.aparoksha.app18.MainActivity
 import org.aparoksha.app18.utils.AppDB
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.*
