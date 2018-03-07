@@ -1,4 +1,4 @@
-package org.aparoksha.app18.utils;
+package org.aparoksha.app18.ui;
 
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
