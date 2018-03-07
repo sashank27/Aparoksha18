@@ -39,6 +39,8 @@ dependencies {
 
     implementation 'pl.hypeapp:materialtimelineview:1.0'
     implementation 'com.github.vipulasri:timelineview:1.0.6'
+    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
+    implementation 'com.ncapdevi:frag-nav:2.4.0'
 
     implementation 'com.google.firebase:firebase-core:11.8.0'
     implementation 'com.google.firebase:firebase-database:11.8.0'
