@@ -24,25 +24,23 @@ import org.aparoksha.app18.utils.AppDB
 
 class TimelineFragment: Fragment() {
 
-    private lateinit var timelineRecyclerAdapter: TimelineRecyclerAdapter
-    private lateinit var coreViewModel: EventsViewModel
+    private lateinit var eventViewModel: EventsViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_timeline,container,false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_timeline,container,false)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        coreViewModel = EventsViewModel.create(activity.application)
-        coreViewModel.getFromDB(context)
-        coreViewModel.getEvents(context,activity)
+        eventViewModel = EventsViewModel.create(activity.application)
+        eventViewModel.getFromDB(context)
+        eventViewModel.getEvents(context,activity)
 
-        timelineRecyclerAdapter = TimelineRecyclerAdapter()
+        val timelineRecyclerAdapter = TimelineRecyclerAdapter()
         timeline_recycler_view.adapter = timelineRecyclerAdapter
         timeline_recycler_view.layoutManager = LinearLayoutManager(context)
 
-        coreViewModel.events.observe(this, Observer {
+        eventViewModel.events.observe(this, Observer {
             it?.let {
                 if (!it.isEmpty()) {
                     timelineRecyclerAdapter.reset()
@@ -59,4 +57,20 @@ class TimelineFragment: Fragment() {
             }
         })
     }
+
+    /*override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        coreViewModel = EventsViewModel.create(activity.application)
+        coreViewModel.getFromDB(context)
+        coreViewModel.getEvents(context,activity)
+
+        coreViewModel.events.observe(this, Observer {
+            it?.let {
+                if (!it.isEmpty()) {
+
+                }
+            }
+        })
+    }*/
 }

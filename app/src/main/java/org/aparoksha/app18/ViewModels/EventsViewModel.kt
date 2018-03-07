@@ -44,12 +44,7 @@ class EventsViewModel(application: Application): AndroidViewModel(application) {
                 launch(UI) {
                     events.value = emptyList()
                     events.value = eventsList
-                    context.toast(eventsList.size.toString()+" "+ events.value!!.size.toString())
                     appDb.storeEvents(eventsList)
-                    val eventsList = appDb.getAllEvents()
-                    for (i in eventsList){
-                        Log.e("akshat",i.name)
-                    }
                 }
             }
         } else {
