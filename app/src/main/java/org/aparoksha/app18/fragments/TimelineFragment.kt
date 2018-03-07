@@ -61,9 +61,9 @@ class TimelineFragment: Fragment() {
     /*override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        coreViewModel = EventsViewModel.create(activity.application)
-        coreViewModel.getFromDB(context)
-        coreViewModel.getEvents(context,activity)
+        eventViewModel = EventsViewModel.create(activity.application)
+        eventViewModel.getFromDB(context)
+        eventViewModel.getEvents(context,activity)
 
         coreViewModel.events.observe(this, Observer {
             it?.let {

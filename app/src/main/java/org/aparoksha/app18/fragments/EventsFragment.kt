@@ -45,14 +45,16 @@ class EventsFragment: Fragment() {
                 LinearLayoutManager.HORIZONTAL, false)
 
         val firstadapter = EventsAdapter(context)
+        val secondAdapter = EventsAdapter(context)
         firstRecyclerView.adapter = firstadapter
-        secondRecyclerView.adapter = EventsAdapter(context)
+        secondRecyclerView.adapter = secondAdapter
 
         eventViewModel.events.observe(this, Observer {
             it?.let {
                 if (!it.isEmpty()) {
                     val informalList = it.map { if(it.categories.contains("informal")) it else null}.filterNotNull()
                     firstadapter.updateEvents(informalList)
+                    secondAdapter.updateEvents(informalList)
                 }
             }
         })
