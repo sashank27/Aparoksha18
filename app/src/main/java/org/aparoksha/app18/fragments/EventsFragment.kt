@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_events.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.ViewModels.EventsViewModel
 import org.aparoksha.app18.adapters.EventsAdapter
+import org.aparoksha.app18.models.Event
 import org.jetbrains.anko.support.v4.toast
 
 /**
@@ -20,7 +21,6 @@ import org.jetbrains.anko.support.v4.toast
 class EventsFragment: Fragment() {
 
     private lateinit var eventViewModel: EventsViewModel
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_events,container,false)
@@ -52,7 +52,9 @@ class EventsFragment: Fragment() {
         eventViewModel.events.observe(this, Observer {
             it?.let {
                 if (!it.isEmpty()) {
-                    val informalList = it.map { if(it.categories.contains("informal")) it else null}.filterNotNull()
+                    val list: MutableList<Event> = it as MutableList<Event>
+                    list.sortBy { it.timestamp }
+                    val informalList = list.map { item -> if(item.categories.contains("informal")) item else null}.filterNotNull()
                     firstadapter.updateEvents(informalList)
                     secondAdapter.updateEvents(informalList)
                 }
