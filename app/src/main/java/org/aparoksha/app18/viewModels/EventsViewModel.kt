@@ -1,4 +1,4 @@
-package org.aparoksha.app18.ViewModels
+package org.aparoksha.app18.viewModels
 
 import android.app.Activity
 import android.app.Application

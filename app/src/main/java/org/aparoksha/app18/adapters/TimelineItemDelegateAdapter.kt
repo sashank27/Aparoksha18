@@ -1,6 +1,5 @@
 package org.aparoksha.app18.adapters
 
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import org.aparoksha.app18.R
 import org.aparoksha.app18.models.TimelineEvents
 import org.aparoksha.app18.utils.ViewType
 import pl.hypeapp.materialtimelineview.MaterialTimelineView
-import java.util.*
 
 /**
  * Created by akshat on 5/3/18.

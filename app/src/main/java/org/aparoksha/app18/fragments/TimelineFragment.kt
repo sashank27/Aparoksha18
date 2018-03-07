@@ -9,13 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_timeline.*
 import org.aparoksha.app18.R
-import org.aparoksha.app18.ViewModels.EventsViewModel
+import org.aparoksha.app18.viewModels.EventsViewModel
 import org.aparoksha.app18.adapters.TimelineRecyclerAdapter
-import org.aparoksha.app18.models.Aparoksha
 import org.aparoksha.app18.models.Event
-import org.aparoksha.app18.models.TimelineEvents
-import org.aparoksha.app18.models.Timepoint
-import org.aparoksha.app18.utils.AppDB
 
 
 /**

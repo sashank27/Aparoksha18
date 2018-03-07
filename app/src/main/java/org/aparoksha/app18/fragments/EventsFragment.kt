@@ -9,10 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_events.*
 import org.aparoksha.app18.R
-import org.aparoksha.app18.ViewModels.EventsViewModel
+import org.aparoksha.app18.viewModels.EventsViewModel
 import org.aparoksha.app18.adapters.EventsAdapter
 import org.aparoksha.app18.models.Event
-import org.jetbrains.anko.support.v4.toast
 
 /**
  * Created by akshat on 7/3/18.
@@ -44,9 +43,9 @@ class EventsFragment: Fragment() {
         secondRecyclerView.layoutManager = LinearLayoutManager(context,
                 LinearLayoutManager.HORIZONTAL, false)
 
-        val firstadapter = EventsAdapter(context)
+        val firstAdapter = EventsAdapter(context)
         val secondAdapter = EventsAdapter(context)
-        firstRecyclerView.adapter = firstadapter
+        firstRecyclerView.adapter = firstAdapter
         secondRecyclerView.adapter = secondAdapter
 
         eventViewModel.events.observe(this, Observer {
@@ -55,7 +54,7 @@ class EventsFragment: Fragment() {
                     val list: MutableList<Event> = it as MutableList<Event>
                     list.sortBy { it.timestamp }
                     val informalList = list.map { item -> if(item.categories.contains("informal")) item else null}.filterNotNull()
-                    firstadapter.updateEvents(informalList)
+                    firstAdapter.updateEvents(informalList)
                     secondAdapter.updateEvents(informalList)
                 }
             }

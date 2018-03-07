@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_timeline_line_padding.view.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.models.VectorDrawableUtils
-import org.aparoksha.app18.utils.GlideApp
+import org.aparoksha.app18.ui.GlideApp
 
 class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<TimelineRecyclerAdapter.TimeLineViewHolder>() {
 

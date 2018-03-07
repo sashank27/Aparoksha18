@@ -1,10 +1,11 @@
-package org.aparoksha.app18
+package org.aparoksha.app18.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
+import org.aparoksha.app18.R
 import org.aparoksha.app18.fragments.EventsFragment
 import org.aparoksha.app18.fragments.HomeFragment
 import org.aparoksha.app18.fragments.TimelineFragment

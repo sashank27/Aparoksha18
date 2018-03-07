@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.aparoksha.app18.R
-import org.aparoksha.app18.ViewModels.EventsViewModel
+import org.aparoksha.app18.viewModels.EventsViewModel
 import org.aparoksha.app18.adapters.FlagshipViewPagerAdapter
 import org.aparoksha.app18.ui.ParallaxPageTransformer
 
@@ -17,7 +17,7 @@ import org.aparoksha.app18.ui.ParallaxPageTransformer
 
 class HomeFragment : Fragment() {
 
-    val flagshipData = arrayOf(R.drawable.hint, R.drawable.fragfest, R.drawable.codered,
+    private val flagshipData = arrayOf(R.drawable.hint, R.drawable.fragfest, R.drawable.codered,
             R.drawable.grayhound, R.drawable.topbot, R.drawable.bootroot, R.drawable.humblefool)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
         eventViewModel.getFromDB(context)
         eventViewModel.getEvents(context,activity)
 
-        val adapter = FlagshipViewPagerAdapter(activity.supportFragmentManager, flagshipData)
+        val adapter = FlagshipViewPagerAdapter(childFragmentManager, flagshipData)
 
         viewPager.adapter = adapter
         viewPager.setPageTransformer(true, ParallaxPageTransformer())
