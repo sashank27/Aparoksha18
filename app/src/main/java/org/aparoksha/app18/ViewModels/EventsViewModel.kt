@@ -6,13 +6,11 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
-import android.util.Log
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.utils.*
-import org.jetbrains.anko.toast
 
 /**
  * Created by akshat on 6/3/18.
@@ -44,19 +42,12 @@ class EventsViewModel(application: Application): AndroidViewModel(application) {
                 launch(UI) {
                     events.value = emptyList()
                     events.value = eventsList
-                    context.toast(eventsList.size.toString()+" "+ events.value!!.size.toString())
                     appDb.storeEvents(eventsList)
-                    val eventsList = appDb.getAllEvents()
-                    for (i in eventsList){
-                        Log.e("akshat",i.name)
-                    }
                 }
             }
         } else {
             launch(UI) {
-                if (events.value!!.isEmpty()) {
-                    showAlert(activity)
-                }
+                if (events.value!!.isEmpty()) showAlert(activity)
             }
         }
     }

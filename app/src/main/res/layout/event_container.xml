@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/rootLayout"
+    android:layout_margin="10dp"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:padding="10dp"
+        android:id="@+id/eventImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <TextView
+        android:id="@+id/eventNameTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="Event Name" />
+
+    <TextView
+        android:id="@+id/eventTimeTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="EventTime"
+        android:textSize="14sp" />
+
+</LinearLayout>
+
