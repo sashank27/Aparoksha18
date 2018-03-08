@@ -2,9 +2,7 @@ package org.aparoksha.app18.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
-import android.support.v4.content.res.ResourcesCompat
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.ncapdevi.fragnav.FragNavController
 import kotlinx.android.synthetic.main.activity_main.*
@@ -66,6 +64,9 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
 
             setOnTabSelectedListener { position, _ ->
                 if (position < 4) {
+                    try {
+                        fragmentNavController.popFragment();
+                    } catch (e: Exception){}
                     fragmentNavController.switchTab(position)
                 }
                 kotlin.io.println(position)

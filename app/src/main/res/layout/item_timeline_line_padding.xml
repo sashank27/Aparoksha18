@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         app:markerSize="20dp"
         app:lineSize="3dp"
-        app:line="@color/colorAccent"
+        app:line="#009ffc"
         app:linePadding="5dp"/>
 
     <android.support.v7.widget.CardView
@@ -35,7 +35,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/human_ubuntu"
+                tools:src="@drawable/human_ubuntu"
                 android:scaleType="fitXY"
                 android:id="@+id/eventImage"/>
 
@@ -56,6 +56,7 @@
             android:fontFamily="@font/circular_std_book_font"
             android:gravity="end"
             android:text="Event Name"
+            android:textColor="#9e2c2c"
             android:textSize="20sp" />
 
         <TextView
