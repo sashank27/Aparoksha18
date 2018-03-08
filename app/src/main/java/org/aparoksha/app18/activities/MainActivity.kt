@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
         return when (index) {
             0 -> HomeFragment()
             1 -> TimelineFragment()
-            2 -> UpdatesFragment()
-            3 -> EventsFragment()
+            2 -> EventsFragment()
+            3 -> UpdatesFragment()
             else -> {
                 throw IllegalStateException("Index Invalid")
             }
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
             addItem(notificationItem)
 
             accentColor = android.graphics.Color.parseColor("#FF0000")
-            defaultBackgroundColor = android.graphics.Color.parseColor("#331749")
+            defaultBackgroundColor = android.graphics.Color.parseColor("#242038")
 
             titleState = com.aurelhubert.ahbottomnavigation.AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE
 

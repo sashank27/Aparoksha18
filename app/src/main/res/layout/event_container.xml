@@ -17,6 +17,7 @@
         android:id="@+id/eventNameTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/circular_std_book_font"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textSize="16sp"
@@ -28,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="EventTime"
+        tools:text="EventTime"
         android:textSize="14sp" />
 
 </LinearLayout>

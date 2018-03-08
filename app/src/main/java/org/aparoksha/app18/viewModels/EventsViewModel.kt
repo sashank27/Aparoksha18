@@ -19,35 +19,34 @@ import org.aparoksha.app18.utils.*
 class EventsViewModel(application: Application): AndroidViewModel(application) {
 
     val events: MutableLiveData<List<Event>> = MutableLiveData()
+    var empty: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         events.value = emptyList()
+        empty.value = false
     }
 
-    fun getFromDB(context: Context) {
+    fun getEvents(appDb: AppDB,isNetworkConnected: Boolean) {
+        val reference = "https://effervescence-iiita.github.io/Effervescence17/data/events.json"
+
         launch(UI) {
-            val appDb = AppDB.getInstance(context)
             val eventsList = appDb.getAllEvents()
             events.value = emptyList()
             events.value = eventsList
+            if(!isNetworkConnected && eventsList.isEmpty()) empty.value = true
         }
-    }
 
-    fun getEvents(context: Context,activity: Activity) {
-        val reference = "https://effervescence-iiita.github.io/Effervescence17/data/events.json"
-        if (isNetworkConnectionAvailable(activity)) {
+        if (isNetworkConnected) {
             launch(CommonPool) {
-                val appDb = AppDB.getInstance(context)
                 val eventsList = readEventsAsync(reference)
-                launch(UI) {
-                    events.value = emptyList()
-                    events.value = eventsList
-                    appDb.storeEvents(eventsList)
+
+                eventsList?.let {
+                    launch(UI) {
+                        events.value = emptyList()
+                        events.value = it
+                        appDb.storeEvents(it)
+                    }
                 }
-            }
-        } else {
-            launch(UI) {
-                if (events.value!!.isEmpty()) showAlert(activity)
             }
         }
     }

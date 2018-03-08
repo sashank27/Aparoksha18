@@ -12,6 +12,9 @@ import org.aparoksha.app18.R
 import org.aparoksha.app18.viewModels.EventsViewModel
 import org.aparoksha.app18.adapters.TimelineRecyclerAdapter
 import org.aparoksha.app18.models.Event
+import org.aparoksha.app18.utils.AppDB
+import org.aparoksha.app18.utils.isNetworkConnectionAvailable
+import org.aparoksha.app18.utils.showAlert
 
 
 /**
@@ -30,8 +33,10 @@ class TimelineFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         eventViewModel = EventsViewModel.create(activity.application)
-        eventViewModel.getFromDB(context)
-        eventViewModel.getEvents(context,activity)
+
+        val appDB = AppDB.getInstance(context)
+        if (isNetworkConnectionAvailable(activity)) eventViewModel.getEvents(appDB,true)
+        else eventViewModel.getEvents(appDB,false)
 
         timeline_recycler_view.layoutManager = LinearLayoutManager(context,
                 LinearLayoutManager.VERTICAL, false)
@@ -50,6 +55,12 @@ class TimelineFragment: Fragment() {
                     adapter.reset()
                     adapter.addEvents(list)
                 }
+            }
+        })
+
+        eventViewModel.empty.observe(this, Observer {
+            it?.let {
+                if(it) showAlert(activity)
             }
         })
     }

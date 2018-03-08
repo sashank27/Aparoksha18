@@ -44,7 +44,7 @@ inline suspend fun <T> suspendCoroutineWrapped(crossinline block: (WrappedContin
             block(wd)
         }
 
-suspend fun readEventsAsync(ref: String): List<Event> =
+suspend fun readEventsAsync(ref: String): List<Event>? =
         suspendCoroutineWrapped { d ->
             val client = OkHttpClient()
             try {
@@ -52,16 +52,19 @@ suspend fun readEventsAsync(ref: String): List<Event> =
                         .url(ref)
                         .build()
 
-                val response = client.newCall(request).execute()
+                try {
+                    val response = client.newCall(request).execute()
+                    if (response.isSuccessful) {
+                        val data = Moshi.Builder()
+                                .build()
+                                .adapter<Array<Event>>(Array<Event>::class.java)
+                                .fromJson(response.body()?.string()).toList()
 
-                if (response.isSuccessful) {
-                    val data = Moshi.Builder()
-                            .build()
-                            .adapter<Array<Event>>(Array<Event>::class.java)
-                            .fromJson(response.body()?.string()).toList()
-
-                    d.resume(data)
-                } else d.resumeWithException(Exception("Unsuccessful response"))
+                        d.resume(data)
+                    } else d.resumeWithException(Exception("Unsuccessful response"))
+                } catch (e: Exception) {
+                    d.resume(null)
+                }
             } catch (e: Exception) {
                 d.resumeWithException(e)
             }

@@ -9,9 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_events.*
 import org.aparoksha.app18.R
+import org.aparoksha.app18.adapters.CategoryAdapter
 import org.aparoksha.app18.viewModels.EventsViewModel
 import org.aparoksha.app18.adapters.EventsAdapter
 import org.aparoksha.app18.models.Event
+import org.aparoksha.app18.utils.AppDB
+import org.aparoksha.app18.utils.isNetworkConnectionAvailable
+import org.aparoksha.app18.utils.showAlert
 
 /**
  * Created by akshat on 7/3/18.
@@ -28,35 +32,30 @@ class EventsFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         eventViewModel = EventsViewModel.create(activity.application)
-        eventViewModel.getFromDB(context)
-        eventViewModel.getEvents(context,activity)
 
-        firstRecyclerView.isDrawingCacheEnabled = true
-        firstRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
+        val appDB = AppDB.getInstance(context)
+        if (isNetworkConnectionAvailable(activity)) eventViewModel.getEvents(appDB,true)
+        else eventViewModel.getEvents(appDB,false)
 
-        firstRecyclerView.layoutManager = LinearLayoutManager(context,
-                LinearLayoutManager.HORIZONTAL, false)
+        categoryRecyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
 
-        secondRecyclerView.isDrawingCacheEnabled = true
-        secondRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
-
-        secondRecyclerView.layoutManager = LinearLayoutManager(context,
-                LinearLayoutManager.HORIZONTAL, false)
-
-        val firstAdapter = EventsAdapter(context)
-        val secondAdapter = EventsAdapter(context)
-        firstRecyclerView.adapter = firstAdapter
-        secondRecyclerView.adapter = secondAdapter
+        val adapter = CategoryAdapter(context)
+        categoryRecyclerView.adapter = adapter
 
         eventViewModel.events.observe(this, Observer {
             it?.let {
                 if (!it.isEmpty()) {
                     val list: MutableList<Event> = it as MutableList<Event>
                     list.sortBy { it.timestamp }
-                    val informalList = list.map { item -> if(item.categories.contains("informal")) item else null}.filterNotNull()
-                    firstAdapter.updateEvents(informalList)
-                    secondAdapter.updateEvents(informalList)
+
+                    adapter.updateEvents(list)
                 }
+            }
+        })
+
+        eventViewModel.empty.observe(this, Observer {
+            it?.let {
+                if(it) showAlert(activity)
             }
         })
     }

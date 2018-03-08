@@ -33,18 +33,6 @@ class NotificationAdapter(options: FirebaseRecyclerOptions<Notification>)
 
             itemView.titleTV.text = notification.title
             itemView.descriptionTV.text = notification.description
-
-            val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
-            calendar.timeInMillis = notification.timestamp.times(1000L)
-
-            val sdf = SimpleDateFormat("hh:mm a")
-            //sdf.timeZone = TimeZone.getTimeZone("Asia/India")
-
-            val time = sdf.format(calendar.time)
-
-            sdf.applyPattern("MMM d")
-            itemView.timestampTV.text = notification.timestamp.toString()
-            itemView.timestampTV.text = "$time ${sdf.format(calendar.time)}"
         }
     }
 }

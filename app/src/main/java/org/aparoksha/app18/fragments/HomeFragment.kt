@@ -27,10 +27,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val eventViewModel = EventsViewModel.create(activity.application)
-        eventViewModel.getFromDB(context)
-        eventViewModel.getEvents(context,activity)
-
         val adapter = FlagshipViewPagerAdapter(childFragmentManager, flagshipData)
 
         viewPager.adapter = adapter

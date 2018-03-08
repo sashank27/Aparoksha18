@@ -55,7 +55,6 @@ class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Timel
 
             GlideApp.with(context)
                     .load(event.imageUrl)
-                    .circleCrop()
                     .placeholder(R.drawable.logo)
                     .into(itemView.eventImage)
 
