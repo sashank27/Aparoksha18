@@ -10,12 +10,12 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_events.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.adapters.CategoryAdapter
-import org.aparoksha.app18.viewModels.EventsViewModel
 import org.aparoksha.app18.adapters.EventsAdapter
 import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.utils.AppDB
 import org.aparoksha.app18.utils.isNetworkConnectionAvailable
 import org.aparoksha.app18.utils.showAlert
+import org.aparoksha.app18.viewModels.AppViewModel
 
 /**
  * Created by akshat on 7/3/18.
@@ -23,7 +23,7 @@ import org.aparoksha.app18.utils.showAlert
 
 class EventsFragment: Fragment() {
 
-    private lateinit var eventViewModel: EventsViewModel
+    private lateinit var eventViewModel: AppViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_events,container,false)
@@ -31,7 +31,7 @@ class EventsFragment: Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        eventViewModel = EventsViewModel.create(activity.application)
+        eventViewModel = AppViewModel.create(activity.application)
 
         val appDB = AppDB.getInstance(context)
         if (isNetworkConnectionAvailable(activity)) eventViewModel.getEvents(appDB,true)

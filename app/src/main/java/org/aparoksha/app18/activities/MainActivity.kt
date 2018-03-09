@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
             addItem(eventsItem)
             addItem(notificationItem)
 
-            accentColor = android.graphics.Color.parseColor("#FF0000")
+            accentColor = android.graphics.Color.parseColor("#ff3f62")
             defaultBackgroundColor = android.graphics.Color.parseColor("#242038")
 
             titleState = com.aurelhubert.ahbottomnavigation.AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE
