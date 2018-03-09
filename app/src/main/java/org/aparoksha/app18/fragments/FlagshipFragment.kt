@@ -47,7 +47,6 @@ class FlagshipFragment : Fragment() {
 
         GlideApp.with(context)
                 .load(image)
-                .placeholder(R.mipmap.ic_launcher)
                 .into(flagshipImageView)
     }
 }

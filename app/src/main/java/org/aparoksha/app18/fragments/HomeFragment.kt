@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.aparoksha.app18.R
+import org.aparoksha.app18.activities.EventDetailActivity
 import org.aparoksha.app18.viewModels.EventsViewModel
 import org.aparoksha.app18.adapters.FlagshipViewPagerAdapter
 import org.aparoksha.app18.ui.ParallaxPageTransformer
+import org.jetbrains.anko.support.v4.startActivity
 
 /**
  * Created by sashank on 3/3/18.
@@ -34,6 +36,7 @@ class HomeFragment : Fragment() {
         viewPager.startAutoScroll(1000)
         viewPager.setAutoScrollDurationFactor(15.0)
 
+        button.setOnClickListener { startActivity<EventDetailActivity>() }
     }
 
 }
