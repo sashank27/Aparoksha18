@@ -87,11 +87,11 @@
         android:id="@+id/eventFirstIV"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
         android:src="@drawable/hint"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,7 +118,6 @@
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:scaleType="centerCrop"
         android:src="@drawable/hint"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -131,10 +130,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/archivo_black"
-        android:textAlignment="viewEnd"
         android:text="October 17, 11:30 AM"
+        android:textAlignment="viewEnd"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
@@ -144,228 +143,43 @@
         android:id="@+id/eventLocationTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto"
         android:text="Main Auditorium"
         android:textAlignment="viewEnd"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline4" />
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/eventTimeTV" />
 
-    <!--<android.support.v4.widget.NestedScrollView
-        android:id="@+id/scrollView"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="563dp"
-        android:clipToPadding="false"
-        android:paddingTop="32dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout_editor_absoluteY="204dp">
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/navigationStrip"
+        app:layout_constraintTop_toTopOf="@+id/guideline3">
 
+    </android.support.v4.view.ViewPager>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:orientation="vertical">
-
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    tools:layout_editor_absoluteX="2dp"
-                    tools:layout_editor_absoluteY="0dp">
-
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="24dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/alarm_clock" />
-
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView"
-                        app:layout_constraintVertical_bias="1.0"
-                        app:srcCompat="@drawable/map" />
-
-                    <TextView
-                        android:id="@+id/timeTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="24dp"
-                        android:fontFamily="@font/hammersmith_one"
-                        android:text="10:00 PM"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="@+id/guideline2"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <android.support.constraint.Guideline
-                        android:id="@+id/guideline2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_begin="81dp" />
-
-                    <TextView
-                        android:id="@+id/dateTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="@font/hammersmith_one"
-                        android:text="October 13, 2017"
-                        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/guideline2"
-                        app:layout_constraintTop_toBottomOf="@+id/timeTextView" />
-
-                    <android.support.constraint.Guideline
-                        android:id="@+id/guideline3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintGuide_begin="80dp" />
-
-                    <TextView
-                        android:id="@+id/locationTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/hammersmith_one"
-                        android:text="Pavillion"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/guideline2"
-                        app:layout_constraintTop_toTopOf="@+id/guideline3" />
-                </android.support.constraint.ConstraintLayout>
-
-            </LinearLayout>
-
-
-            <TextView
-                android:id="@+id/descriptionTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/delius"
-                android:padding="10dp"
-                android:text="@string/lorem_long"
-                android:textSize="20sp"
-                android:typeface="sans" />
-
-            <LinearLayout
-                android:id="@+id/facebookLinkLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/merriweather_bold"
-                    android:padding="5dp"
-                    android:text="Find on Facebook"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/facebookLinkTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/delius"
-                    android:padding="5dp"
-                    android:text="https://facebook.com/events/23535"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/additionalInfoLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/merriweather_bold"
-                    android:padding="5dp"
-                    android:text="Additional Information"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/additionalInfoTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/delius"
-                    android:padding="5dp"
-                    android:text="https://facebook.com/events/23535"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/organizersLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/merriweather_bold"
-                    android:padding="5dp"
-                    android:text="Event Organizers"
-                    android:textSize="20sp" />
-
-                <LinearLayout
-                    android:id="@+id/organizerLinearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
-                    android:orientation="vertical" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
--->
     <com.gigamole.navigationtabstrip.NavigationTabStrip
+        android:id="@+id/navigationStrip"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:nts_color="#000"
-        app:nts_size="15sp"
-        app:nts_weight="3dp"
-        app:nts_factor="2.5"
-        app:nts_titles="@array/titles"
-        app:nts_type="point"
-        app:nts_gravity="bottom"
-        app:nts_typeface="fonts/typeface.otf"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:nts_active_color="@color/colorAccent"
+        app:nts_animation_duration="200"
+        app:nts_color="@color/colorAccent"
         app:nts_corners_radius="1.5dp"
-        app:nts_animation_duration="300"
-        app:nts_active_color="#000"
-        app:nts_inactive_color="#c4c4c4"/>
+        app:nts_factor="2.5"
+        app:nts_gravity="top"
+        app:nts_inactive_color="#c4c4c4"
+        app:nts_size="15sp"
+        app:nts_type="point"
+        app:nts_weight="3dp" />
 
 </android.support.constraint.ConstraintLayout>
