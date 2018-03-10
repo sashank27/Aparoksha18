@@ -1,26 +1,24 @@
 package org.aparoksha.app18.viewModels
 
-import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModelProvider
-import android.content.Context
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.utils.*
+import java.util.Collections.emptyList
 
 /**
  * Created by akshat on 6/3/18.
  */
 
-class EventsViewModel(application: Application): AndroidViewModel(application) {
+class AppViewModel(application: Application): AndroidViewModel(application) {
 
     val events: MutableLiveData<List<Event>> = MutableLiveData()
     var empty: MutableLiveData<Boolean> = MutableLiveData()
-
     init {
         events.value = emptyList()
         empty.value = false
@@ -51,8 +49,8 @@ class EventsViewModel(application: Application): AndroidViewModel(application) {
     }
 
     companion object {
-        fun create(application: Application): EventsViewModel {
-            return ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(EventsViewModel::class.java)
+        fun create(application: Application): AppViewModel {
+            return ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(AppViewModel::class.java)
         }
     }
 }

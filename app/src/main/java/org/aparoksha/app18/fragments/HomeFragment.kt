@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.activities.EventDetailActivity
-import org.aparoksha.app18.viewModels.EventsViewModel
 import org.aparoksha.app18.adapters.FlagshipViewPagerAdapter
 import org.aparoksha.app18.ui.ParallaxPageTransformer
 import org.jetbrains.anko.support.v4.startActivity

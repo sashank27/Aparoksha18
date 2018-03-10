@@ -56,7 +56,6 @@
             android:fontFamily="@font/circular_std_book_font"
             android:gravity="end"
             android:text="Event Name"
-            android:textColor="#9e2c2c"
             android:textSize="20sp" />
 
         <TextView
