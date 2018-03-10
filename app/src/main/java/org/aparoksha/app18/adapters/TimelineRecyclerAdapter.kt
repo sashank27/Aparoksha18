@@ -15,7 +15,7 @@ import org.aparoksha.app18.ui.GlideApp
 
 class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<TimelineRecyclerAdapter.TimeLineViewHolder>() {
 
-    private var items: MutableList<Event>
+    private var items: List<Event> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeLineViewHolder =
             TimeLineViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_timeline_line_padding,parent,false),viewType)
@@ -23,7 +23,7 @@ class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Timel
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: TimeLineViewHolder, position: Int) {
-        holder.bind(items.get(position),context)
+        holder.bind(items[position],context)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -34,13 +34,9 @@ class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Timel
         items = mutableListOf()
     }
 
-    fun addEvents(item: List<Event>) {
-        this.items.addAll(item)
+    fun addEvents(items: List<Event>) {
+        this.items = items
         notifyDataSetChanged()
-    }
-
-    fun reset() {
-        this.items.removeAll(items)
     }
 
     class TimeLineViewHolder(itemView: View, viewType: Int) : RecyclerView.ViewHolder(itemView) {
@@ -58,12 +54,10 @@ class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Timel
                     .placeholder(R.drawable.logo)
                     .into(itemView.eventImage)
 
-            if (System.currentTimeMillis() - event.timestamp > 3600000) {
-                itemView.time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_inactive, android.R.color.darker_gray))
-            } else if (System.currentTimeMillis() - event.timestamp > 0 && System.currentTimeMillis() - event.timestamp < 3600000) {
-                itemView.time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_active, R.color.colorPrimary))
-            } else {
-                itemView.time_marker.setMarker(ContextCompat.getDrawable(context, R.drawable.ic_marker), ContextCompat.getColor(context, R.color.colorPrimary))
+            when {
+                System.currentTimeMillis() - event.timestamp > 3600000 -> itemView.time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_inactive, android.R.color.darker_gray))
+                System.currentTimeMillis() - event.timestamp in 1..3599999 -> itemView.time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_active, R.color.colorPrimary))
+                else -> itemView.time_marker.setMarker(ContextCompat.getDrawable(context, R.drawable.ic_marker), ContextCompat.getColor(context, R.color.colorPrimary))
             }
         }
     }

@@ -52,7 +52,7 @@ class TimelineFragment: Fragment() {
                     val list: MutableList<Event> = it as MutableList<Event>
                     list.sortBy { it.timestamp }
 
-                    adapter.reset()
+                    //adapter.reset()
                     adapter.addEvents(list)
                 }
             }
