@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.developer_container.view.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.Developer
-import org.aparoksha.app18.ui.GlideApp
+import org.aparoksha.app18.GlideApp
 
 
 /**

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.event_container.view.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.Event
-import org.aparoksha.app18.ui.GlideApp
+import org.aparoksha.app18.GlideApp
 
 /**
  * Created by akshat on 7/3/18.

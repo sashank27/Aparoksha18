@@ -1,8 +1,10 @@
 package org.aparoksha.app18.activities
 
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.ncapdevi.fragnav.FragNavController
 import kotlinx.android.synthetic.main.activity_main.*
@@ -57,19 +59,13 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
             addItem(eventsItem)
             addItem(notificationItem)
 
-            accentColor = android.graphics.Color.parseColor("#ff3f62")
-            defaultBackgroundColor = android.graphics.Color.parseColor("#242038")
+            accentColor = Color.parseColor("#ff3f62")
+            defaultBackgroundColor = Color.parseColor("#242038")
 
-            titleState = com.aurelhubert.ahbottomnavigation.AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE
+            titleState = AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE
 
             setOnTabSelectedListener { position, _ ->
-                if (position < 4) {
-                    try {
-                        fragmentNavController.popFragment();
-                    } catch (e: Exception){}
-                    fragmentNavController.switchTab(position)
-                }
-                kotlin.io.println(position)
+                fragmentNavController.switchTab(position)
                 return@setOnTabSelectedListener true
             }
         }

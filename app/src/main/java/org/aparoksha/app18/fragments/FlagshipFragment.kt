@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_flagship.*
+import org.aparoksha.app18.GlideApp
 import org.aparoksha.app18.R
-import org.aparoksha.app18.ui.GlideApp
 
 /**
  * Created by sashank on 7/3/18.

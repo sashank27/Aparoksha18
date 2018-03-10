@@ -9,11 +9,15 @@ import org.aparoksha.app18.R
 import android.graphics.BitmapFactory
 import org.aparoksha.app18.adapters.EventDetailViewPagerAdapter
 import org.aparoksha.app18.models.Event
-import org.aparoksha.app18.ui.GlideApp
+//import org.aparoksha.app18.ui.GlideApp
+import org.aparoksha.app18.utils.AppDB
+import org.aparoksha.app18.viewModels.AppViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class EventDetailActivity : AppCompatActivity() {
+
+    private lateinit var event: Event
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,16 @@ class EventDetailActivity : AppCompatActivity() {
         val eventID = intent.getLongExtra("id",0)
         if (eventID != 0L) setEventDetails(eventID)
         setViewPager(eventID)
+
+        val eventViewModel = AppViewModel.create(application)
+        val appDB = AppDB.getInstance(this)
+        eventViewModel.getEventById(eventID,appDB)
+
+        eventViewModel.event.observe(this,android.arch.lifecycle.Observer {
+            it?.let{
+                event = it
+            }
+        })
     }
 
     private fun setViewPager(eventID: Long) {
@@ -64,7 +78,7 @@ class EventDetailActivity : AppCompatActivity() {
         }
 
         if (event.imageUrl != "") {
-            GlideApp.with(this).load(event.imageUrl).into(eventSecondIV)
+           // GlideApp.with(this).load(event.imageUrl).into(eventSecondIV)
 
             Blurry.with(this@EventDetailActivity)
                     .color(Color.argb(120, 0, 0, 0))

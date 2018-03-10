@@ -23,9 +23,9 @@ class AppDB private constructor(context: Context) {
 
     companion object : SingletonHolder<AppDB, Context>(::AppDB)
 
-    fun getAllEvents(): MutableList<Event> = eventHash.getAllValues<Event>()
+    fun getAllEvents(): List<Event> = eventHash.getAllValues<Event>()
 
-    fun getAllFlagships(): MutableList<FlagshipEvents> = eventHash.getAllValues<FlagshipEvents>()
+    fun getAllFlagships(): List<FlagshipEvents> = eventHash.getAllValues<FlagshipEvents>()
 
     fun getAllTeamMembers() = teamHash.getAllValues<Person>().sortedBy { it.id }
 

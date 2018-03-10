@@ -4,13 +4,12 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModelProvider
-import android.util.Log
+import android.content.Context
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.utils.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.Collections.emptyList
@@ -22,26 +21,43 @@ import java.util.Collections.emptyList
 class AppViewModel(application: Application): AndroidViewModel(application) {
 
     val events: MutableLiveData<List<Event>> = MutableLiveData()
-    var empty: MutableLiveData<Boolean> = MutableLiveData()
+    var dataFetchFailed: MutableLiveData<Boolean> = MutableLiveData()
+    val event: MutableLiveData<Event> = MutableLiveData()
+
+    private lateinit var appDb: AppDB
+    var dataFetched : MutableLiveData<Boolean> = MutableLiveData()
+
     init {
         events.value = emptyList()
-        empty.value = false
+        dataFetchFailed.value = false
+        dataFetched.value = false
     }
 
-    fun getEvents(appDb: AppDB,isNetworkConnected: Boolean) {
+    fun initAppDB(context: Context){
+        appDb = AppDB.getInstance(context)
+        getEvents()
+    }
+
+    fun getEventById(id: Long,appDb: AppDB): Event? {
+        val eventsList = appDb.getAllEvents()
+
+        for (event in eventsList) {
+            if (event.id == id) {
+                return event
+            }
+        }
+        return null
+    }
+
+    private fun getEvents() {
 
         val eventsList = appDb.getAllEvents()
         events.value = eventsList
-        if (!isNetworkConnected && eventsList.isEmpty()) empty.value = true
 
-
-        if (isNetworkConnected) {
-            fetchEvents(appDb)
-        }
-
+        fetchEvents()
     }
 
-    private fun fetchEvents (appDb: AppDB) {
+    private fun fetchEvents () {
         val reference = "https://effervescence-iiita.github.io/Effervescence17/data/"
 
         val retrofit = Retrofit.Builder()
@@ -52,37 +68,27 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
 
         val githubService = retrofit.create(GithubService::class.java)
 
-        val call = githubService.fetchEvents()
-
-        call.enqueue(object : Callback<List<EventPojo>> {
-
-            override fun onFailure(call: Call<List<EventPojo>>?, t: Throwable?) {
-                Log.e("error", t.toString())
-            }
-
-            override fun onResponse(call: Call<List<EventPojo>>?, response: Response<List<EventPojo>>) {
-                if(response.isSuccessful) {
-                    val allEvents = response.body()
-
-                    if(allEvents != null) {
-                        val eventsList :MutableList<Event> = mutableListOf()
-                        for (event in allEvents) {
-                            eventsList.add(Event(event.id,event.name,event.description,event.location,event.timestamp,event.imageUrl,event.categories))
-                        }
-
-                        events.value = eventsList
-                        appDb.storeEvents(eventsList)
-                    }
+        val fetchedEvents = githubService.fetchEvents()
+        launch(UI) {
+            try {
+                events.value = fetchedEvents.await()
+                appDb.storeEvents(events.value!!)
+            } catch (e: Exception) {
+                if(events.value!!.isNotEmpty()) {
 
                 }
+                println(e)
             }
+        }
 
-        })
+
     }
 
     companion object {
         fun create(application: Application): AppViewModel {
-            return ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(AppViewModel::class.java)
+            return ViewModelProvider.AndroidViewModelFactory
+                    .getInstance(application).create(AppViewModel::class.java)
+                    .apply { initAppDB(application) }
         }
     }
 }

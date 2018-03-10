@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_events.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.adapters.CategoryAdapter
-import org.aparoksha.app18.adapters.EventsAdapter
 import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.utils.AppDB
 import org.aparoksha.app18.utils.isNetworkConnectionAvailable
@@ -23,19 +22,16 @@ import org.aparoksha.app18.viewModels.AppViewModel
 
 class EventsFragment: Fragment() {
 
-    private lateinit var eventViewModel: AppViewModel
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_events,container,false)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        eventViewModel = AppViewModel.create(activity.application)
+        val eventViewModel = AppViewModel.create(activity.application)
 
-        val appDB = AppDB.getInstance(context)
-        if (isNetworkConnectionAvailable(activity)) eventViewModel.getEvents(appDB,true)
-        else eventViewModel.getEvents(appDB,false)
+        //if (isNetworkConnectionAvailable(activity)) eventViewModel.getEvents(appDB,true)
+        //eventViewModel.getEvents()
 
         categoryRecyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
 
@@ -53,7 +49,7 @@ class EventsFragment: Fragment() {
             }
         })
 
-        eventViewModel.empty.observe(this, Observer {
+        eventViewModel.dataFetchFailed.observe(this, Observer {
             it?.let {
                 if(it) showAlert(activity)
             }

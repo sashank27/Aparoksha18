@@ -15,7 +15,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.team_member_container.view.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.Person
-import org.aparoksha.app18.ui.GlideApp
+import org.aparoksha.app18.GlideApp
 
 
 /**
