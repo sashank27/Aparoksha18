@@ -4,11 +4,15 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModelProvider
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
+import android.util.Log
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.utils.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.Collections.emptyList
 
 /**
@@ -25,27 +29,55 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun getEvents(appDb: AppDB,isNetworkConnected: Boolean) {
-        val reference = "https://effervescence-iiita.github.io/Effervescence17/data/events.json"
 
-        launch(UI) {
-            val eventsList = appDb.getAllEvents()
-            events.value = eventsList
-            if (!isNetworkConnected && eventsList.isEmpty()) empty.value = true
-        }
+        val eventsList = appDb.getAllEvents()
+        events.value = eventsList
+        if (!isNetworkConnected && eventsList.isEmpty()) empty.value = true
+
 
         if (isNetworkConnected) {
-            launch(CommonPool) {
-                val eventsList = readEventsAsync(reference)
+            fetchEvents(appDb)
+        }
 
-                eventsList?.let {
-                    launch(UI) {
-                        events.value = emptyList()
-                        events.value = it
-                        appDb.storeEvents(it)
+    }
+
+    private fun fetchEvents (appDb: AppDB) {
+        val reference = "https://effervescence-iiita.github.io/Effervescence17/data/"
+
+        val retrofit = Retrofit.Builder()
+                .baseUrl(reference)
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+
+        val githubService = retrofit.create(GithubService::class.java)
+
+        val call = githubService.fetchEvents()
+
+        call.enqueue(object : Callback<List<EventPojo>> {
+
+            override fun onFailure(call: Call<List<EventPojo>>?, t: Throwable?) {
+                Log.e("error", t.toString())
+            }
+
+            override fun onResponse(call: Call<List<EventPojo>>?, response: Response<List<EventPojo>>) {
+                if(response.isSuccessful) {
+                    val allEvents = response.body()
+
+                    if(allEvents != null) {
+                        val eventsList :MutableList<Event> = mutableListOf()
+                        for (event in allEvents) {
+                            eventsList.add(Event(event.id,event.name,event.description,event.location,event.timestamp,event.imageUrl,event.categories))
+                        }
+
+                        events.value = eventsList
+                        appDb.storeEvents(eventsList)
                     }
+
                 }
             }
-        }
+
+        })
     }
 
     companion object {

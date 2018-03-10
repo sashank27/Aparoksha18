@@ -52,6 +52,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
     implementation 'com.firebaseui:firebase-ui-database:3.1.0'
 
+    compile 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
+
     compile 'com.android.support:customtabs:26.1.0'
     implementation 'jp.wasabeef:glide-transformations:3.0.1'
     implementation 'com.github.bumptech.glide:glide:4.1.1'
