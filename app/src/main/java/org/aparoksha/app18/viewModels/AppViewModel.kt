@@ -29,9 +29,8 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
 
         launch(UI) {
             val eventsList = appDb.getAllEvents()
-            events.value = emptyList()
             events.value = eventsList
-            if(!isNetworkConnected && eventsList.isEmpty()) empty.value = true
+            if (!isNetworkConnected && eventsList.isEmpty()) empty.value = true
         }
 
         if (isNetworkConnected) {
