@@ -30,8 +30,7 @@ class EventsFragment: Fragment() {
 
         val eventViewModel = AppViewModel.create(activity.application)
 
-        //if (isNetworkConnectionAvailable(activity)) eventViewModel.getEvents(appDB,true)
-        //eventViewModel.getEvents()
+        eventViewModel.getEvents()
 
         categoryRecyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
 

@@ -24,7 +24,7 @@ class EventsAdapter(val context:Context): RecyclerView.Adapter<EventsAdapter.Vie
     override fun getItemCount(): Int = eventsList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(eventsList.get(position))
+        holder.bind(eventsList[position])
     }
 
 
@@ -45,6 +45,4 @@ class EventsAdapter(val context:Context): RecyclerView.Adapter<EventsAdapter.Vie
         eventsList = events
         notifyDataSetChanged()
     }
-
-
 }

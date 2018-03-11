@@ -27,7 +27,7 @@ class TimelineFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //eventViewModel = AppViewModel.create(activity.application)
+        eventViewModel = AppViewModel.create(activity.application)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -37,20 +37,20 @@ class TimelineFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //eventViewModel.getEvents()
+        eventViewModel.getEvents()
 
         timeline_recycler_view.layoutManager = LinearLayoutManager(context,
                 LinearLayoutManager.VERTICAL, false)
 
-        //val adapter = TimelineRecyclerAdapter(context)
+        val adapter = TimelineRecyclerAdapter(context)
         //timeline_recycler_view.isDrawingCacheEnabled = true
         //timeline_recycler_view.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
-        //timeline_recycler_view.adapter = adapter
+        timeline_recycler_view.adapter = adapter
 
-        /*eventViewModel.events.observe(this, Observer {
+        eventViewModel.events.observe(this, Observer {
             it?.let {
                 if (!it.isEmpty()) {
-           //         adapter.addEvents(it)
+                    adapter.addEvents(it)
                 }
             }
         })
@@ -59,6 +59,6 @@ class TimelineFragment : Fragment() {
             it?.let {
                 if (it) showAlert(activity)
             }
-        })*/
+        })
     }
 }

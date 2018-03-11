@@ -36,6 +36,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textColor="@android:color/white"
         android:fontFamily="@font/circular_std_book_font"
         android:text="Name of Member"
         android:textSize="20sp"
