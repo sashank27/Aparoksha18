@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.developer_container.view.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.Developer
-import org.aparoksha.app18.ui.GlideApp
+import org.aparoksha.app18.GlideApp
 
 
 /**
@@ -31,10 +31,6 @@ class DeveloperAdapter(val context: Context) : RecyclerView.Adapter<DeveloperAda
         holder.bindItem(context, developerList[position])
     }
 
-    fun addDeveloper(developerList: List<Developer>) {
-        this.developerList.addAll(developerList)
-        notifyDataSetChanged()
-    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItem(context: Context, developer: Developer) {
@@ -50,7 +46,7 @@ class DeveloperAdapter(val context: Context) : RecyclerView.Adapter<DeveloperAda
           }
         }
        
-        fun openChromeTab(context: Context,url: String){
+        private fun openChromeTab(context: Context, url: String){
             val builder = CustomTabsIntent.Builder()
             val customTabsIntent = builder.build()
             customTabsIntent.launchUrl(context, Uri.parse(url))

@@ -15,7 +15,8 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.team_member_container.view.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.Person
-import org.aparoksha.app18.ui.GlideApp
+import org.aparoksha.app18.GlideApp
+import org.aparoksha.app18.models.Event
 
 
 /**
@@ -24,7 +25,7 @@ import org.aparoksha.app18.ui.GlideApp
 
 class TeamAdapter(val context: Context) : RecyclerView.Adapter<TeamAdapter.ViewHolder>() {
 
-    private val teamList = ArrayList<Person>()
+    var teamList : List<Person> = listOf()
 
     override fun getItemCount() = teamList.size
 
@@ -36,8 +37,8 @@ class TeamAdapter(val context: Context) : RecyclerView.Adapter<TeamAdapter.ViewH
         holder.bindItem(context, teamList[position])
     }
 
-    fun addTeam(teamList: List<Person>) {
-        this.teamList.addAll(teamList)
+    fun updateTeam(team: List<Person>) {
+        teamList = team
         notifyDataSetChanged()
     }
 
@@ -64,7 +65,7 @@ class TeamAdapter(val context: Context) : RecyclerView.Adapter<TeamAdapter.ViewH
                             requestCode)
                 }
                 else
-                    context.startActivity(Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:" + callNumber)))
+                    context.startActivity(Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:$callNumber")))
             })
         }
     }

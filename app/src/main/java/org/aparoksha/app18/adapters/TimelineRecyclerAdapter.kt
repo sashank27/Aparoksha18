@@ -11,7 +11,9 @@ import kotlinx.android.synthetic.main.item_timeline_line_padding.view.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.models.VectorDrawableUtils
-import org.aparoksha.app18.ui.GlideApp
+import org.aparoksha.app18.GlideApp
+import org.aparoksha.app18.activities.EventDetailActivity
+import org.jetbrains.anko.startActivity
 
 class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<TimelineRecyclerAdapter.TimeLineViewHolder>() {
 
@@ -30,12 +32,8 @@ class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Timel
         return TimelineView.getTimeLineViewType(position, itemCount)
     }
 
-    init {
-        items = mutableListOf()
-    }
-
     fun addEvents(items: List<Event>) {
-        this.items = items
+        this.items = items.sortedBy { it.timestamp }
         notifyDataSetChanged()
     }
 
@@ -59,6 +57,8 @@ class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Timel
                 System.currentTimeMillis() - event.timestamp in 1..3599999 -> itemView.time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_active, R.color.colorPrimary))
                 else -> itemView.time_marker.setMarker(ContextCompat.getDrawable(context, R.drawable.ic_marker), ContextCompat.getColor(context, R.color.colorPrimary))
             }
+
+            itemView.setOnClickListener { itemView.context.startActivity<EventDetailActivity>("id" to event.id) }
         }
     }
 }

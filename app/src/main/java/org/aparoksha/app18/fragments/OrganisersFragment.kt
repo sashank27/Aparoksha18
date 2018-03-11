@@ -1,6 +1,7 @@
 package org.aparoksha.app18.fragments
 
 import android.Manifest
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -16,13 +17,15 @@ import kotlinx.android.synthetic.main.fragment_organizers.*
 import kotlinx.android.synthetic.main.organizer_layout.view.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.Event
-import org.aparoksha.app18.models.Organizer
+import org.aparoksha.app18.viewModels.AppViewModel
 
 /**
  * Created by sashank on 10/3/18.
  */
 
 class OrganizersFragment : Fragment() {
+
+    private var event : Event = Event()
 
     private val requestCode = 123
     private lateinit var callNumber : String
@@ -43,15 +46,16 @@ class OrganizersFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val eventId = arguments.getLong("eventId")
+        val eventID = arguments.getLong("eventId")
 
-        val organizer1 = Organizer("xyzabcde",8877663242)
-        val organizer2 = Organizer("xyzabcdf",5677663242)
-        val organizer3 = Organizer("xyzabcdty",8877543242)
+        val eventViewModel = AppViewModel.create(activity.application)
+        if (eventViewModel.getEventById(eventID) != null) event = eventViewModel.getEventById(eventID)!!
 
-        val testOrganizers = listOf(organizer1,organizer2,organizer3)
-
-        val event = Event(organizers = testOrganizers)
+        eventViewModel.event.observe(this, Observer {
+            it?.let{
+                event = it
+            }
+        })
 
         event.organizers.map {
             val v = View.inflate(activity, R.layout.organizer_layout, null)

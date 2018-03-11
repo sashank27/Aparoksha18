@@ -19,7 +19,7 @@ import org.jetbrains.anko.support.v4.startActivity
 class HomeFragment : Fragment() {
 
     private val flagshipData = arrayOf(R.drawable.hint, R.drawable.fragfest, R.drawable.codered,
-            R.drawable.grayhound, R.drawable.topbot, R.drawable.bootroot, R.drawable.humblefool)
+            R.drawable.greyhound, R.drawable.topbot, R.drawable.bootroot, R.drawable.humblefool)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)

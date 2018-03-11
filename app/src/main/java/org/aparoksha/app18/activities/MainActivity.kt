@@ -1,16 +1,15 @@
 package org.aparoksha.app18.activities
 
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.ncapdevi.fragnav.FragNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import org.aparoksha.app18.R
-import org.aparoksha.app18.fragments.EventsFragment
-import org.aparoksha.app18.fragments.HomeFragment
-import org.aparoksha.app18.fragments.TimelineFragment
-import org.aparoksha.app18.fragments.UpdatesFragment
+import org.aparoksha.app18.fragments.*
 
 class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener {
 
@@ -23,6 +22,7 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
             1 -> TimelineFragment()
             2 -> EventsFragment()
             3 -> UpdatesFragment()
+            4 -> InfoFragment()
             else -> {
                 throw IllegalStateException("Index Invalid")
             }
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
 
     private fun initFragmentManagement(savedInstanceState: Bundle?) {
         fragmentControllerBuilder = FragNavController.newBuilder(savedInstanceState, supportFragmentManager, R.id.containerFrame)
-        fragmentControllerBuilder.rootFragmentListener(this, 4)
+        fragmentControllerBuilder.rootFragmentListener(this, 5)
         fragmentNavController = fragmentControllerBuilder.build()
     }
 
@@ -50,26 +50,22 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
         val timelineItem = AHBottomNavigationItem("Timeline", R.drawable.ic_dashboard_black_24dp)
         val eventsItem = AHBottomNavigationItem("Events", R.drawable.ic_dashboard_black_24dp)
         val notificationItem = AHBottomNavigationItem("Notifications", R.drawable.ic_notifications_black_24dp)
+        val infoItem = AHBottomNavigationItem("Info", R.drawable.ic_notifications_black_24dp)
 
         with(navigation) {
             addItem(homeItem)
             addItem(timelineItem)
             addItem(eventsItem)
             addItem(notificationItem)
+            addItem(infoItem)
 
-            accentColor = android.graphics.Color.parseColor("#ff3f62")
-            defaultBackgroundColor = android.graphics.Color.parseColor("#242038")
+            accentColor = Color.parseColor("#ff3f62")
+            defaultBackgroundColor = Color.parseColor("#242038")
 
-            titleState = com.aurelhubert.ahbottomnavigation.AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE
+            titleState = AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE
 
             setOnTabSelectedListener { position, _ ->
-                if (position < 4) {
-                    try {
-                        fragmentNavController.popFragment();
-                    } catch (e: Exception){}
-                    fragmentNavController.switchTab(position)
-                }
-                kotlin.io.println(position)
+                fragmentNavController.switchTab(position)
                 return@setOnTabSelectedListener true
             }
         }
