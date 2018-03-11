@@ -1,5 +1,6 @@
 package org.aparoksha.app18.fragments
 
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,12 +12,15 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_description.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.Event
+import org.aparoksha.app18.viewModels.AppViewModel
 
 /**
  * Created by sashank on 10/3/18.
  */
 
 class EventDescriptionFragment : Fragment() {
+
+    private var event : Event = Event()
 
     fun newInstance(eventID: Long): EventDescriptionFragment {
 
@@ -35,10 +39,16 @@ class EventDescriptionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val eventID = arguments.getLong("eventId")
+        val eventViewModel = AppViewModel.create(activity.application)
+        if (eventViewModel.getEventById(eventID) != null) event = eventViewModel.getEventById(eventID)!!
 
-        val event = Event()
+        eventViewModel.event.observe(this, Observer {
+            it?.let{
+                event = it
+            }
+        })
 
-        /*descriptionTV.text = event.description
+        descriptionTV.text = event.description
 
         if (event.facebookEventLink.isBlank()) {
             facebookLinkLayout.visibility = View.GONE
@@ -48,7 +58,7 @@ class EventDescriptionFragment : Fragment() {
             additionalInfoLayout.visibility = View.GONE
         } else {
             additionalInfoTV.text = event.additionalInfo.joinToString { "\n" }
-        }*/
+        }
 
         facebookLinkLayout.setOnClickListener({
             val url = event.facebookEventLink

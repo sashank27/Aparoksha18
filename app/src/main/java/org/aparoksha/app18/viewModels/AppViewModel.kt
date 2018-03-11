@@ -45,7 +45,7 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
         appDb = AppDB.getInstance(context)
     }
 
-    fun getEventById(id: Long,appDb: AppDB): Event? {
+    fun getEventById(id: Long): Event? {
         val eventsList = appDb.getAllEvents()
 
         for (event in eventsList) {

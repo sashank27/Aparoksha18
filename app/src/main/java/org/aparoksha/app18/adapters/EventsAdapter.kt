@@ -9,6 +9,8 @@ import kotlinx.android.synthetic.main.event_container.view.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.GlideApp
+import org.aparoksha.app18.activities.EventDetailActivity
+import org.jetbrains.anko.startActivity
 
 /**
  * Created by akshat on 7/3/18.
@@ -38,6 +40,8 @@ class EventsAdapter(val context:Context): RecyclerView.Adapter<EventsAdapter.Vie
                     .circleCrop()
                     .placeholder(R.drawable.logo)
                     .into(itemView.eventImageView)
+
+            itemView.setOnClickListener { itemView.context.startActivity<EventDetailActivity>("id" to event.id) }
         }
     }
 
