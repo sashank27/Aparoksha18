@@ -13,7 +13,9 @@ import org.aparoksha.app18.fragments.UpdatesFragment
 
 class EventDetailViewPagerAdapter(fm : FragmentManager, eventId : Long) : FragmentStatePagerAdapter(fm) {
 
-    private val fragments = listOf(EventDescriptionFragment().newInstance(eventId),OrganizersFragment().newInstance(eventId),UpdatesFragment())
+    private val fragments = listOf(EventDescriptionFragment().newInstance(eventId),
+            OrganizersFragment().newInstance(eventId),
+            UpdatesFragment().newInstance(eventId))
 
     override fun getItem(position: Int) : Fragment = fragments[position]
 

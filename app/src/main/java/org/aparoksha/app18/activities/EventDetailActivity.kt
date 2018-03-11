@@ -26,9 +26,9 @@ class EventDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_detail)
 
-        val image = BitmapFactory.decodeResource(resources, R.drawable.hint)
+        val image = BitmapFactory.decodeResource(resources, R.drawable.logo)
         Blurry.with(this@EventDetailActivity)
-                .radius(30)
+                .radius(40)
                 .sampling(2)
                 .color(Color.argb(120,0,0,0))
                 .async()
@@ -66,8 +66,6 @@ class EventDetailActivity : AppCompatActivity() {
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
         if (event.timestamp < 100L) {
             eventTimeTV.text = "Online Event"
-            //reminderTV.text = "Online Event"
-            //reminderRL.isClickable = false
             eventLocationTV.text = "Online"
         } else {
             calendar.timeInMillis = event.timestamp.times(1000L)
@@ -76,7 +74,7 @@ class EventDetailActivity : AppCompatActivity() {
             sdf.timeZone = TimeZone.getTimeZone("Asia/India")
 
             eventTimeTV.text = sdf.format(calendar.time)
-            eventLocationTV.text = event?.location
+            eventLocationTV.text = event.location
         }
 
         if (event.imageUrl != "") {

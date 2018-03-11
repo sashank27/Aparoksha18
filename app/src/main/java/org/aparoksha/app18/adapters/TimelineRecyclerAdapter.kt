@@ -7,13 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.github.vipulasri.timelineview.TimelineView
+import kotlinx.android.synthetic.main.activity_event_detail.*
 import kotlinx.android.synthetic.main.item_timeline_line_padding.view.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.models.VectorDrawableUtils
 import org.aparoksha.app18.GlideApp
+import org.aparoksha.app18.R.id.eventLocationTV
 import org.aparoksha.app18.activities.EventDetailActivity
 import org.jetbrains.anko.startActivity
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<TimelineRecyclerAdapter.TimeLineViewHolder>() {
 
@@ -44,8 +48,21 @@ class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Timel
 
         fun bind(event: Event,context: Context) {
 
-            itemView.name.text = event.name
-            itemView.time.text = event.timestamp.toString()
+            itemView.eventNameTV.text = event.name
+            val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
+            if (event.timestamp < 100L) {
+                itemView.eventTimeTV.text = "Online Event"
+            } else {
+                calendar.timeInMillis = event.timestamp.times(1000L)
+
+                var sdf = SimpleDateFormat("MMMM d")
+                sdf.timeZone = TimeZone.getTimeZone("Asia/India")
+                itemView.eventDateTV.text = sdf.format(calendar.time)
+
+                sdf = SimpleDateFormat("hh:mm a")
+                sdf.timeZone = TimeZone.getTimeZone("Asia/India")
+                itemView.eventTimeTV.text = sdf.format(calendar.time)
+            }
 
             GlideApp.with(context)
                     .load(event.imageUrl)

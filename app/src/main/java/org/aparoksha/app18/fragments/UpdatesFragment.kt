@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
 import kotlinx.android.synthetic.main.fragment_updates.*
 import org.aparoksha.app18.Notification
 import org.aparoksha.app18.NotificationAdapter
@@ -21,6 +22,25 @@ class UpdatesFragment :Fragment() {
 
     private lateinit var adapter : NotificationAdapter
 
+    fun newInstance(): EventDescriptionFragment {
+
+        val args = Bundle()
+        args.putBoolean("isEvent", false)
+        val fragment = EventDescriptionFragment()
+        fragment.arguments = args
+        return fragment
+    }
+
+    fun newInstance(eventID: Long): EventDescriptionFragment {
+
+        val args = Bundle()
+        args.putBoolean("isEvent", true)
+        args.putLong("eventId", eventID)
+        val fragment = EventDescriptionFragment()
+        fragment.arguments = args
+        return fragment
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_updates, container, false)
     }
@@ -28,17 +48,26 @@ class UpdatesFragment :Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mFirebaseDB = FirebaseDatabase.getInstance()
-        val query = mFirebaseDB.getReference("notifications").orderByChild("timestamp")
+        val isEventSpecific = arguments.getBoolean("isEvent")
+
+        val ref = FirebaseDatabase.getInstance().getReference("notifications").orderByChild("timestamp")
+        var query: Query = ref
+
+        if (isEventSpecific) {
+            val eventID = arguments.getString("eventId")
+            query = ref.orderByChild("eventID").equalTo(eventID)
+        }
 
         val options = FirebaseRecyclerOptions.Builder<Notification>()
                 .setQuery(query, Notification::class.java)
                 .build()
 
-        adapter = NotificationAdapter(options)
+        adapter = NotificationAdapter(options, noNotifsTV)
 
         recyclerview.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
         recyclerview.adapter = adapter
+
+        noNotifsTV.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.GONE
     }
 
     override fun onStart() {

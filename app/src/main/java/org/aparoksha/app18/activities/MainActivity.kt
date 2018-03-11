@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
             0 -> HomeFragment()
             1 -> TimelineFragment()
             2 -> EventsFragment()
-            3 -> UpdatesFragment()
+            3 -> UpdatesFragment().newInstance()
             4 -> InfoFragment()
             else -> {
                 throw IllegalStateException("Index Invalid")

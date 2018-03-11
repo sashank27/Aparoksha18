@@ -11,6 +11,8 @@ import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.GlideApp
 import org.aparoksha.app18.activities.EventDetailActivity
 import org.jetbrains.anko.startActivity
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by akshat on 7/3/18.
@@ -33,7 +35,17 @@ class EventsAdapter(val context:Context): RecyclerView.Adapter<EventsAdapter.Vie
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(event: Event) {
             itemView.eventNameTV.text = event.name
-            itemView.eventTimeTV.text = event.timestamp.toString()
+
+            val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
+            if (event.timestamp < 100L) {
+                itemView.eventTimeTV.text = "Online Event"
+            } else {
+                calendar.timeInMillis = event.timestamp.times(1000L)
+
+                val sdf = SimpleDateFormat("MMM d, hh:mm a")
+                sdf.timeZone = TimeZone.getTimeZone("Asia/India")
+                itemView.eventTimeTV.text = sdf.format(calendar.time)
+            }
 
             GlideApp.with(context)
                     .load(event.imageUrl)
