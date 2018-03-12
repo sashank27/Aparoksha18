@@ -12,7 +12,6 @@
         android:textSize="22sp"
         android:layout_marginStart="10dp"
         tools:text="category 1"
-        android:gravity="center"
         android:fontFamily="@font/circular_std_book_font"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

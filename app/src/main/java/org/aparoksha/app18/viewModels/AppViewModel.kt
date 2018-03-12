@@ -20,17 +20,17 @@ import java.util.Collections.emptyList
  * Created by akshat on 6/3/18.
  */
 
-class AppViewModel(application: Application): AndroidViewModel(application) {
+class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     var dataFetchFailed: MutableLiveData<Boolean> = MutableLiveData()
 
     val events: MutableLiveData<List<Event>> = MutableLiveData()
     val event: MutableLiveData<Event> = MutableLiveData()
-    val team : MutableLiveData<List<Person>> = MutableLiveData()
-    val sponsor : MutableLiveData<List<Sponsor>> = MutableLiveData()
+    val team: MutableLiveData<List<Person>> = MutableLiveData()
+    val sponsor: MutableLiveData<List<Sponsor>> = MutableLiveData()
 
     private lateinit var appDb: AppDB
-    var dataFetched : MutableLiveData<Boolean> = MutableLiveData()
+    var dataFetched: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         events.value = emptyList()
@@ -41,7 +41,7 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
         dataFetched.value = false
     }
 
-    fun initAppDB(context: Context){
+    fun initAppDB(context: Context) {
         appDb = AppDB.getInstance(context)
     }
 
@@ -57,14 +57,15 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun getEvents() {
-        val eventsList = appDb.getAllEvents()
-        events.value = eventsList
-
+        launch(UI) {
+            val eventsList = appDb.getAllEvents()
+            events.value = eventsList
+        }
         fetchEvents()
     }
 
     private fun fetchEvents () {
-        val reference = "https://effervescence-iiita.github.io/Effervescence17/data/"
+        val reference = "https://aparoksha18.github.io/Aparoksha-Data/data/"
 
         val retrofit = Retrofit.Builder()
                 .baseUrl(reference)
@@ -74,13 +75,13 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
 
         val githubService = retrofit.create(GithubService::class.java)
 
-        val fetchedEvents = githubService.fetchEvents()
         launch(UI) {
+            val fetchedEvents = githubService.fetchEvents()
             try {
                 events.value = fetchedEvents.await()
                 appDb.storeEvents(events.value!!)
             } catch (e: Exception) {
-                if(events.value!!.isNotEmpty()) {
+                if (events.value!!.isNotEmpty()) {
 
                 }
                 println(e)
@@ -98,7 +99,7 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
     }
 
     private fun fetchTeam() {
-        val reference = "https://effervescence-iiita.github.io/Effervescence17/data/"
+        val reference = "https://aparoksha18.github.io/Aparoksha-Data/data/"
 
         val retrofit = Retrofit.Builder()
                 .baseUrl(reference)
@@ -114,7 +115,7 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
                 team.value = fetchedTeam.await()
                 appDb.storeTeam(team.value!!)
             } catch (e: Exception) {
-                if(events.value!!.isNotEmpty()) {
+                if (events.value!!.isNotEmpty()) {
 
                 }
                 println(e)
@@ -132,7 +133,7 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
     }
 
     private fun fetchSponsors() {
-        val reference = "https://effervescence-iiita.github.io/Effervescence17/data/"
+        val reference = "https://aparoksha18.github.io/Aparoksha-Data/data/"
 
         val retrofit = Retrofit.Builder()
                 .baseUrl(reference)
@@ -148,7 +149,7 @@ class AppViewModel(application: Application): AndroidViewModel(application) {
                 sponsor.value = fetchedSponsors.await()
                 appDb.storeSponsors(sponsor.value!!)
             } catch (e: Exception) {
-                if(events.value!!.isNotEmpty()) {
+                if (events.value!!.isNotEmpty()) {
 
                 }
                 println(e)

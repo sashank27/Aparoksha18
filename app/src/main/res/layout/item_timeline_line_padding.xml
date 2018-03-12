@@ -44,8 +44,7 @@
                     android:id="@+id/eventImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    tools:src="@drawable/human_ubuntu" />
+                    android:scaleType="centerCrop" />
 
                 <View
                     android:layout_width="match_parent"

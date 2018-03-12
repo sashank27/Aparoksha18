@@ -42,14 +42,14 @@ class TimelineFragment : Fragment() {
         timeline_recycler_view.layoutManager = LinearLayoutManager(context,
                 LinearLayoutManager.VERTICAL, false)
 
-        val adapter = TimelineRecyclerAdapter(context)
+        val adapter = TimelineRecyclerAdapter()
         //timeline_recycler_view.isDrawingCacheEnabled = true
         //timeline_recycler_view.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
         timeline_recycler_view.adapter = adapter
 
         eventViewModel.events.observe(this, Observer {
             it?.let {
-                if (!it.isEmpty()) {
+                if (it.isNotEmpty()) {
                     adapter.addEvents(it)
                 }
             }

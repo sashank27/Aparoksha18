@@ -50,12 +50,12 @@ class UpdatesFragment :Fragment() {
 
         val isEventSpecific = arguments.getBoolean("isEvent")
 
-        val ref = FirebaseDatabase.getInstance().getReference("notifications").orderByChild("timestamp")
+        val ref = FirebaseDatabase.getInstance().getReference("notifications")
         var query: Query = ref
 
         if (isEventSpecific) {
             val eventID = arguments.getString("eventId")
-            query = ref.equalTo(eventID)
+            query = ref.orderByChild("eventID").equalTo(eventID)
         }
 
         val options = FirebaseRecyclerOptions.Builder<Notification>()
