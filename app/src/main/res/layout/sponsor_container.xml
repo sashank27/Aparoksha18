@@ -18,14 +18,15 @@
 
     <TextView
         android:id="@+id/sponsorName"
-        android:paddingTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/sponsorImage"
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/sponsorImage"
-        android:textColor="@android:color/white"
+        android:fontFamily="@font/circular_std_book_font"
+        android:paddingTop="20dp"
         android:text="Sponsor's Name"
+        android:textColor="@android:color/white"
         android:textSize="24sp" />
 
     <TextView
@@ -34,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/sponsorName"
         android:layout_below="@+id/sponsorName"
+        android:fontFamily="@font/roboto"
         android:text="categories"
         android:textSize="16sp" />
 

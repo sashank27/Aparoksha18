@@ -22,21 +22,21 @@ class UpdatesFragment :Fragment() {
 
     private lateinit var adapter : NotificationAdapter
 
-    fun newInstance(): EventDescriptionFragment {
+    fun newInstance(): UpdatesFragment {
 
         val args = Bundle()
         args.putBoolean("isEvent", false)
-        val fragment = EventDescriptionFragment()
+        val fragment = UpdatesFragment()
         fragment.arguments = args
         return fragment
     }
 
-    fun newInstance(eventID: Long): EventDescriptionFragment {
+    fun newInstance(eventID: Long): UpdatesFragment {
 
         val args = Bundle()
         args.putBoolean("isEvent", true)
         args.putLong("eventId", eventID)
-        val fragment = EventDescriptionFragment()
+        val fragment = UpdatesFragment()
         fragment.arguments = args
         return fragment
     }
@@ -55,7 +55,7 @@ class UpdatesFragment :Fragment() {
 
         if (isEventSpecific) {
             val eventID = arguments.getString("eventId")
-            query = ref.orderByChild("eventID").equalTo(eventID)
+            query = ref.equalTo(eventID)
         }
 
         val options = FirebaseRecyclerOptions.Builder<Notification>()

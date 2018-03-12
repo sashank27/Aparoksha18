@@ -35,7 +35,6 @@ class HomeFragment : Fragment() {
         viewPager.startAutoScroll(1000)
         viewPager.setAutoScrollDurationFactor(15.0)
 
-        button.setOnClickListener { startActivity<EventDetailActivity>() }
     }
 
 }

@@ -26,16 +26,6 @@ class EventDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_detail)
 
-        val image = BitmapFactory.decodeResource(resources, R.drawable.logo)
-        Blurry.with(this@EventDetailActivity)
-                .radius(40)
-                .sampling(2)
-                .color(Color.argb(120,0,0,0))
-                .async()
-                .animate(500)
-                .from(image)
-                .into(eventFirstIV)
-
         val eventID = intent.getLongExtra("id",0)
 
         val eventViewModel = AppViewModel.create(application)
@@ -47,10 +37,8 @@ class EventDetailActivity : AppCompatActivity() {
             }
         })
 
-        if (eventID != 0L) {
-            setEventDetails()
-            setViewPager(eventID)
-        }
+        if (eventID != 0L) setEventDetails()
+        setViewPager(eventID)
     }
 
     private fun setViewPager(eventID: Long) {
@@ -61,7 +49,7 @@ class EventDetailActivity : AppCompatActivity() {
 
     private fun setEventDetails() {
 
-        eventTitleTV?.text = event.name
+        eventTitleTV.text = event.name
 
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
         if (event.timestamp < 100L) {
@@ -78,10 +66,15 @@ class EventDetailActivity : AppCompatActivity() {
         }
 
         if (event.imageUrl != "") {
-            GlideApp.with(this).load(event.imageUrl).into(eventSecondIV)
+            GlideApp.with(this)
+                    .load(event.imageUrl)
+                    .placeholder(R.drawable.logo)
+                    .into(eventSecondIV)
+
             GlideApp.with(this@EventDetailActivity)
                     .asBitmap()
                     .load(event.imageUrl)
+                    .placeholder(R.drawable.background)
                     .into(object : SimpleTarget<Bitmap>(500,500) {
                         override fun onResourceReady(resource: Bitmap?, transition: Transition<in Bitmap>?) {
                             Blurry.with(this@EventDetailActivity)

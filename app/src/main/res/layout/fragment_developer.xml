@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
                 android:text="Pranjal Paliwal"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -51,6 +52,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/circular_std_book_font"
             android:text="Head App Operations"
             android:textColor="@android:color/white"
             android:textSize="25sp"
@@ -83,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
                 android:text="Sashank Mishra"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -115,6 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
                 android:text="Akshat Jain"
                 android:textSize="20sp" />
 
@@ -126,6 +130,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="250dp"
+            android:fontFamily="@font/circular_std_book_font"
             android:text="App Developers"
             android:textColor="@android:color/white"
             android:textSize="22sp"

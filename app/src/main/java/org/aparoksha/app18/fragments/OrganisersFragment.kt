@@ -57,6 +57,11 @@ class OrganizersFragment : Fragment() {
             }
         })
 
+        if (event.organizers.isEmpty()) {
+            noOrganizersTV.visibility = View.VISIBLE
+            organizerLL.visibility = View.GONE
+        }
+
         event.organizers.map {
             val v = View.inflate(activity, R.layout.organizer_layout, null)
             v.organizerNameTV.text = it.name

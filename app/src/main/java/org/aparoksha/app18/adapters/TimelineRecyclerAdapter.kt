@@ -75,7 +75,7 @@ class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Timel
                 else -> itemView.time_marker.setMarker(ContextCompat.getDrawable(context, R.drawable.ic_marker), ContextCompat.getColor(context, R.color.colorPrimary))
             }
 
-            itemView.setOnClickListener { itemView.context.startActivity<EventDetailActivity>("id" to event.id) }
+            itemView.cardView.setOnClickListener { itemView.context.startActivity<EventDetailActivity>("id" to event.id) }
         }
     }
 }
