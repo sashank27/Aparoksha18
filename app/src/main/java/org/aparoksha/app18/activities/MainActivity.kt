@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
             1 -> TimelineFragment()
             2 -> EventsFragment()
             3 -> UpdatesFragment().newInstance()
-            4 -> InfoFragment()
+            4 -> TalksFragment()
             else -> {
                 throw IllegalStateException("Index Invalid")
             }
@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
         val timelineItem = AHBottomNavigationItem("Timeline", R.drawable.ic_dashboard_black_24dp)
         val eventsItem = AHBottomNavigationItem("Events", R.drawable.ic_dashboard_black_24dp)
         val notificationItem = AHBottomNavigationItem("Notifications", R.drawable.ic_notifications_black_24dp)
+        val talksItem = AHBottomNavigationItem("Tech Talks",R.drawable.ic_dashboard_black_24dp)
         val infoItem = AHBottomNavigationItem("Info", R.drawable.ic_notifications_black_24dp)
 
         with(navigation) {
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
             addItem(timelineItem)
             addItem(eventsItem)
             addItem(notificationItem)
-            addItem(infoItem)
+            addItem(talksItem)
 
             accentColor = Color.parseColor("#ff3f62")
             defaultBackgroundColor = Color.parseColor("#242038")

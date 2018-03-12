@@ -20,8 +20,8 @@ class CategoryAdapter(val context: Context): RecyclerView.Adapter<CategoryAdapte
     var events: List<Event>
 
     init {
-        categories = listOf("informal","informal","informal","informal")
-        events = mutableListOf()
+        categories = listOf()
+        events = listOf()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -36,7 +36,7 @@ class CategoryAdapter(val context: Context): RecyclerView.Adapter<CategoryAdapte
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)  {
         fun bind(category: String) {
             val informalList = events.map { item -> if(item.categories.contains(category)) item else null}.filterNotNull()
-            itemView.textView.text = category
+            itemView.textView.text = category.substring(0,1).toUpperCase() + category.substring(1)
 
             itemView.eventsRecyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             itemView.eventsRecyclerView.isDrawingCacheEnabled = true
@@ -51,6 +51,11 @@ class CategoryAdapter(val context: Context): RecyclerView.Adapter<CategoryAdapte
 
     fun updateEvents(events: List<Event>) {
         this.events = events
+        notifyDataSetChanged()
+    }
+
+    fun updateCategories(categories: List<String>) {
+        this.categories = categories
         notifyDataSetChanged()
     }
 }
