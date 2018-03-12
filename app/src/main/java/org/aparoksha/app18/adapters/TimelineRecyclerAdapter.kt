@@ -1,26 +1,22 @@
 package org.aparoksha.app18.adapters
 
-import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.github.vipulasri.timelineview.TimelineView
-import kotlinx.android.synthetic.main.activity_event_detail.*
 import kotlinx.android.synthetic.main.item_timeline_line_padding.view.*
+import org.aparoksha.app18.GlideApp
 import org.aparoksha.app18.R
+import org.aparoksha.app18.activities.EventDetailActivity
 import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.models.VectorDrawableUtils
-import org.aparoksha.app18.GlideApp
-import org.aparoksha.app18.R.id.eventLocationTV
-import org.aparoksha.app18.R.id.item
-import org.aparoksha.app18.activities.EventDetailActivity
 import org.jetbrains.anko.startActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TimelineRecyclerAdapter() : RecyclerView.Adapter<TimelineRecyclerAdapter.TimeLineViewHolder>() {
+class TimelineRecyclerAdapter : RecyclerView.Adapter<TimelineRecyclerAdapter.TimeLineViewHolder>() {
 
     private var items: List<Event> = emptyList()
 
