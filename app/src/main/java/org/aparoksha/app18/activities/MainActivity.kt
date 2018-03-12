@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.ncapdevi.fragnav.FragNavController
@@ -59,8 +60,8 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
             addItem(notificationItem)
             addItem(infoItem)
 
-            accentColor = Color.parseColor("#ff3f62")
-            defaultBackgroundColor = Color.parseColor("#242038")
+            accentColor = ContextCompat.getColor(this@MainActivity, R.color.colorAccent)
+            defaultBackgroundColor = ContextCompat.getColor(this@MainActivity, R.color.colorPrimary)
 
             titleState = AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE
 

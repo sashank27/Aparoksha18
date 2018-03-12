@@ -14,12 +14,13 @@ import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.models.VectorDrawableUtils
 import org.aparoksha.app18.GlideApp
 import org.aparoksha.app18.R.id.eventLocationTV
+import org.aparoksha.app18.R.id.item
 import org.aparoksha.app18.activities.EventDetailActivity
 import org.jetbrains.anko.startActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<TimelineRecyclerAdapter.TimeLineViewHolder>() {
+class TimelineRecyclerAdapter() : RecyclerView.Adapter<TimelineRecyclerAdapter.TimeLineViewHolder>() {
 
     private var items: List<Event> = emptyList()
 
@@ -29,7 +30,7 @@ class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Timel
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: TimeLineViewHolder, position: Int) {
-        holder.bind(items[position],context)
+        holder.bind(items[position])
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -46,36 +47,43 @@ class TimelineRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Timel
             itemView.time_marker.initLine(viewType)
         }
 
-        fun bind(event: Event,context: Context) {
+        fun bind(event: Event) {
 
-            itemView.eventNameTV.text = event.name
-            val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
-            if (event.timestamp < 100L) {
-                itemView.eventTimeTV.text = "Online Event"
-            } else {
-                calendar.timeInMillis = event.timestamp.times(1000L)
+            with(itemView) {
+                eventNameTV.text = event.name
+                val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
+                if (event.timestamp < 100L) {
+                    eventTimeTV.text = "Online Event"
+                } else {
+                    calendar.timeInMillis = event.timestamp.times(1000L)
 
-                var sdf = SimpleDateFormat("MMMM d")
-                sdf.timeZone = TimeZone.getTimeZone("Asia/India")
-                itemView.eventDateTV.text = sdf.format(calendar.time)
+                    var sdf = SimpleDateFormat("MMMM d")
+                    sdf.timeZone = TimeZone.getTimeZone("Asia/India")
+                    eventDateTV.text = sdf.format(calendar.time)
 
-                sdf = SimpleDateFormat("hh:mm a")
-                sdf.timeZone = TimeZone.getTimeZone("Asia/India")
-                itemView.eventTimeTV.text = sdf.format(calendar.time)
+                    sdf = SimpleDateFormat("hh:mm a")
+                    sdf.timeZone = TimeZone.getTimeZone("Asia/India")
+                    eventTimeTV.text = sdf.format(calendar.time)
+                }
+
+                GlideApp.with(itemView.context)
+                        .load(event.imageUrl)
+                        .placeholder(R.drawable.logo)
+                        .into(itemView.eventImage)
+
+                when {
+                    System.currentTimeMillis() - event.timestamp > 3600000 ->
+                        time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_inactive, android.R.color.darker_gray))
+                    System.currentTimeMillis() - event.timestamp in 1..3599999 ->
+                        time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_active, R.color.colorPrimary))
+                    else ->
+                        time_marker.setMarker(ContextCompat.getDrawable(context, R.drawable.ic_marker), ContextCompat.getColor(context, R.color.colorPrimary))
+                }
+
+                itemView.cardView.setOnClickListener {
+                    context.startActivity<EventDetailActivity>("id" to event.id)
+                }
             }
-
-            GlideApp.with(context)
-                    .load(event.imageUrl)
-                    .placeholder(R.drawable.logo)
-                    .into(itemView.eventImage)
-
-            when {
-                System.currentTimeMillis() - event.timestamp > 3600000 -> itemView.time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_inactive, android.R.color.darker_gray))
-                System.currentTimeMillis() - event.timestamp in 1..3599999 -> itemView.time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_active, R.color.colorPrimary))
-                else -> itemView.time_marker.setMarker(ContextCompat.getDrawable(context, R.drawable.ic_marker), ContextCompat.getColor(context, R.color.colorPrimary))
-            }
-
-            itemView.cardView.setOnClickListener { itemView.context.startActivity<EventDetailActivity>("id" to event.id) }
         }
     }
 }
