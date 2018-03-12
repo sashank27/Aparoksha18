@@ -64,8 +64,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         fetchEvents()
     }
 
-    private fun fetchEvents() {
-        val reference = "https://effervescence-iiita.github.io/Effervescence17/data/"
+    private fun fetchEvents () {
+        val reference = "https://aparoksha18.github.io/Aparoksha-Data/data/"
 
         val retrofit = Retrofit.Builder()
                 .baseUrl(reference)
@@ -99,7 +99,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun fetchTeam() {
-        val reference = "https://effervescence-iiita.github.io/Effervescence17/data/"
+        val reference = "https://aparoksha18.github.io/Aparoksha-Data/data/"
 
         val retrofit = Retrofit.Builder()
                 .baseUrl(reference)
@@ -133,7 +133,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun fetchSponsors() {
-        val reference = "https://effervescence-iiita.github.io/Effervescence17/data/"
+        val reference = "https://aparoksha18.github.io/Aparoksha-Data/data/"
 
         val retrofit = Retrofit.Builder()
                 .baseUrl(reference)
