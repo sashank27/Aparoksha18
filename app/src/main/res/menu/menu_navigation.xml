@@ -16,6 +16,11 @@
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="Events" />
 
+    <item
+        android:id="@+id/navigation_talks"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Tech Talks" />
+
 
     <item
         android:id="@+id/navigation_notifications"

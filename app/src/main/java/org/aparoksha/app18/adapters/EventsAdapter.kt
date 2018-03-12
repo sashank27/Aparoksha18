@@ -49,9 +49,8 @@ class EventsAdapter(val context:Context): RecyclerView.Adapter<EventsAdapter.Vie
 
             GlideApp.with(context)
                     .load(event.imageUrl)
-                    .circleCrop()
                     .placeholder(R.drawable.logo)
-                    .into(itemView.eventImageView)
+                    .into(itemView.eventImage)
 
             itemView.setOnClickListener { itemView.context.startActivity<EventDetailActivity>("id" to event.id) }
         }
