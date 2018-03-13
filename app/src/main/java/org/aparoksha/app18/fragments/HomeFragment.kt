@@ -5,6 +5,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.firebase.ui.auth.AuthUI
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
+import com.journeyapps.barcodescanner.BarcodeEncoder
+import kotlinx.android.synthetic.main.content_home_fragment.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.adapters.FlagshipViewPagerAdapter
@@ -32,6 +38,23 @@ class HomeFragment : Fragment() {
         viewPager.setPageTransformer(true, ParallaxPageTransformer())
         viewPager.startAutoScroll(1000)
         viewPager.setAutoScrollDurationFactor(15.0)
+
+        signOutBtn.setOnClickListener {
+            AuthUI.getInstance().signOut(activity)
+            activity.finish()
+        }
+
+        val text = "This is sample text" // Whatever you need to encode in the QR code
+        val multiFormatWriter = MultiFormatWriter()
+
+        try {
+            val bitmap = BarcodeEncoder()
+                    .createBitmap(multiFormatWriter
+                            .encode(text, BarcodeFormat.QR_CODE,700,700))
+            userQRcode.setImageBitmap(bitmap)
+        } catch (e : WriterException) {
+            e.printStackTrace()
+        }
 
     }
 

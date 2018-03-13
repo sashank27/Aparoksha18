@@ -1,20 +1,31 @@
 package org.aparoksha.app18.activities
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
 import com.ncapdevi.fragnav.FragNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.fragments.*
+import java.util.*
+import com.google.firebase.auth.FirebaseUser
+import com.firebase.ui.auth.IdpResponse
+import android.content.Intent
+import android.util.Log
+import org.jetbrains.anko.toast
+
 
 class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener {
 
     private lateinit var fragmentNavController: FragNavController
     private lateinit var fragmentControllerBuilder: FragNavController.Builder
+    private var RC_SIGN_IN = 123
 
     override fun getRootFragment(index: Int): Fragment {
         return when (index) {
@@ -33,6 +44,18 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user == null) {
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setIsSmartLockEnabled(false)
+                            .setAvailableProviders(
+                                    Arrays.asList<AuthUI.IdpConfig>(AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                            .build(),
+                    RC_SIGN_IN)
+        }
 
         initFragmentManagement(savedInstanceState)
         initBottomNavigation()
@@ -70,6 +93,19 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
             setOnTabSelectedListener { position, _ ->
                 fragmentNavController.switchTab(position)
                 return@setOnTabSelectedListener true
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            if (resultCode == Activity.RESULT_OK) {
+                toast("Signed In")
+            } else {
+                toast("Please Sign In to use the app")
+                finish()
             }
         }
     }

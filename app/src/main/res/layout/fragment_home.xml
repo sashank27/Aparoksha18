@@ -7,6 +7,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/tallToolbarHeight"
+        android:id="@+id/appbar"
         android:theme="@style/AppTheme.PopupOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -52,6 +53,13 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_home_fragment" />
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+       <include layout="@layout/content_home_fragment"/>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
