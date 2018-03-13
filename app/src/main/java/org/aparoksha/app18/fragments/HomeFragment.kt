@@ -1,7 +1,9 @@
 package org.aparoksha.app18.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,12 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.adapters.FlagshipViewPagerAdapter
 import org.aparoksha.app18.ui.ParallaxPageTransformer
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import org.aparoksha.app18.models.User
+
 
 /**
  * Created by sashank on 3/3/18.
@@ -33,6 +41,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = FlagshipViewPagerAdapter(childFragmentManager, flagshipData)
+        val sharedPrefs = activity.getSharedPreferences("ApkPrefs", Context.MODE_PRIVATE)
+        val key = sharedPrefs.getString("key","")
+        if(key.equals("")) {
+            AuthUI.getInstance().signOut(activity)
+        }
 
         viewPager.adapter = adapter
         viewPager.setPageTransformer(true, ParallaxPageTransformer())
@@ -42,6 +55,24 @@ class HomeFragment : Fragment() {
         signOutBtn.setOnClickListener {
             AuthUI.getInstance().signOut(activity)
             activity.finish()
+        }
+
+        val mFirebaseDatabase = FirebaseDatabase.getInstance()
+        val userRef = mFirebaseDatabase.getReference("users/"+key)
+
+        val userListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val user = dataSnapshot.getValue<User>(User::class.java)
+
+                if (user != null) {
+                    userUidTV.text = user.id
+                } else {
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w("error", "loadPost:onCancelled", databaseError.toException())
+            }
         }
 
         val text = "This is sample text" // Whatever you need to encode in the QR code
@@ -55,7 +86,7 @@ class HomeFragment : Fragment() {
         } catch (e : WriterException) {
             e.printStackTrace()
         }
-
+        userRef.addValueEventListener(userListener)
     }
 
 }
