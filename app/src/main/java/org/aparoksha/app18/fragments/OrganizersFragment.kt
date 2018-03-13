@@ -17,7 +17,9 @@ import kotlinx.android.synthetic.main.fragment_organizers.*
 import kotlinx.android.synthetic.main.organizer_layout.view.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.models.Event
+import org.aparoksha.app18.models.Organizer
 import org.aparoksha.app18.viewModels.AppViewModel
+import org.jetbrains.anko.support.v4.makeCall
 
 /**
  * Created by sashank on 10/3/18.
@@ -25,10 +27,9 @@ import org.aparoksha.app18.viewModels.AppViewModel
 
 class OrganizersFragment : Fragment() {
 
-    private var event : Event = Event()
-
+    private var event: Event = Event()
     private val requestCode = 123
-    private lateinit var callNumber : String
+    private lateinit var callNumber: String
 
     fun newInstance(eventID: Long): OrganizersFragment {
 
@@ -57,6 +58,14 @@ class OrganizersFragment : Fragment() {
             }
         })
 
+        /*val organizer1 = Organizer("xyzabcde", 8877663242)
+        val organizer2 = Organizer("xyzabcdf", 5677663242)
+        val organizer3 = Organizer("xyzabcdty", 8877543242)
+
+        val testOrganizers = listOf(organizer1, organizer2, organizer3)
+
+        val event = Event(organizers = testOrganizers)
+*/
         if (event.organizers.isEmpty()) {
             noOrganizersTV.visibility = View.VISIBLE
             organizerLL.visibility = View.GONE
@@ -69,22 +78,13 @@ class OrganizersFragment : Fragment() {
             v.contactTV.text = callNumber
 
             v.callButton.setOnClickListener({
+                callNumber = it.contactTV.text.toString()
                 if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.CALL_PHONE), requestCode)
                 } else
                     startActivity(Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:$callNumber")))
             })
             organizerLL.addView(v)
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        when (requestCode) {
-            requestCode -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startActivity(Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:$callNumber")))
-            } else {
-                Log.d("TAG", "Call Permission Not Granted")
-            }
         }
     }
 }

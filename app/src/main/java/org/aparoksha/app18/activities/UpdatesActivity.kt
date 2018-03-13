@@ -8,6 +8,8 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import org.aparoksha.app18.R
 
 import kotlinx.android.synthetic.main.activity_updates.*
+import kotlinx.android.synthetic.main.content_updates.*
+import org.aparoksha.app18.fragments.UpdatesFragment
 import org.jetbrains.anko.startActivity
 
 class UpdatesActivity : AppCompatActivity() {
@@ -15,6 +17,11 @@ class UpdatesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_updates)
+
+        supportFragmentManager.beginTransaction()
+                .add(R.id.updateFragment, UpdatesFragment().newInstance())
+                .commit()
+
         initBottomNavigation()
     }
 

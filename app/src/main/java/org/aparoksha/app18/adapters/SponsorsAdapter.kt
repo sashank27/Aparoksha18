@@ -44,7 +44,6 @@ class SponsorsAdapter(val context: Context) : RecyclerView.Adapter<SponsorsAdapt
             itemView.sponsorName.text = sponsor.name
             GlideApp.with(context)
                     .load(sponsor.imageUrl)
-                    .circleCrop()
                     .placeholder(R.drawable.logo)
                     .into(itemView.sponsorImage)
 
