@@ -59,7 +59,7 @@ class MapFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        if (mapView != null) mapView.onDestroy()
     }
 
     override fun onLowMemory() {

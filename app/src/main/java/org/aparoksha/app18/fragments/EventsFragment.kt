@@ -11,8 +11,6 @@ import kotlinx.android.synthetic.main.fragment_events.*
 import org.aparoksha.app18.R
 import org.aparoksha.app18.adapters.CategoryAdapter
 import org.aparoksha.app18.models.Event
-import org.aparoksha.app18.utils.AppDB
-import org.aparoksha.app18.utils.isNetworkConnectionAvailable
 import org.aparoksha.app18.utils.showAlert
 import org.aparoksha.app18.viewModels.AppViewModel
 
@@ -42,7 +40,10 @@ class EventsFragment: Fragment() {
                 if (!it.isEmpty()) {
                     val list: MutableList<Event> = it as MutableList<Event>
                     list.sortBy { it.timestamp }
-
+                    val categoryList: MutableList<String> = mutableListOf()
+                    list.forEach { categoryList.addAll(it.categories) }
+                    val categories: List<String> = categoryList.distinctBy { it }
+                    adapter.updateCategories(categories)
                     adapter.updateEvents(list)
                 }
             }

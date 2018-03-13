@@ -30,11 +30,11 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
     override fun getRootFragment(index: Int): Fragment {
         return when (index) {
             0 -> HomeFragment()
-            1 -> TimelineFragment()
-            2 -> EventsFragment()
-            3 -> MapFragment()
-            //3 -> UpdatesFragment().newInstance()
+            1 -> EventContainerFragment()
+            2 -> MapFragment()
+            3 -> UpdatesFragment().newInstance()
             4 -> InfoFragment()
+
             else -> {
                 throw IllegalStateException("Index Invalid")
             }
@@ -71,18 +71,16 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
     private fun initBottomNavigation() {
 
         val homeItem = AHBottomNavigationItem("Home", R.drawable.ic_home_black_24dp)
-        val timelineItem = AHBottomNavigationItem("Timeline", R.drawable.ic_dashboard_black_24dp)
-        val eventsItem = AHBottomNavigationItem("Events", R.drawable.ic_dashboard_black_24dp)
-        val locationItem = AHBottomNavigationItem("Map", R.drawable.ic_location_on_black_24dp)
-        val notificationItem = AHBottomNavigationItem("Notifications", R.drawable.ic_notifications_black_24dp)
-        val infoItem = AHBottomNavigationItem("Info", R.drawable.ic_notifications_black_24dp)
+        val timelineItem = AHBottomNavigationItem("Events", R.drawable.ic_events_24dp)
+        val eventsItem = AHBottomNavigationItem("Map", R.drawable.ic_location_on_black_24dp)
+        val locationItem = AHBottomNavigationItem("Updates", R.drawable.ic_notifications_black_24dp)
+        val infoItem = AHBottomNavigationItem("Info", R.drawable.ic_info_black_24dp)
 
         with(navigation) {
             addItem(homeItem)
             addItem(timelineItem)
             addItem(eventsItem)
             addItem(locationItem)
-            //addItem(notificationItem)
             addItem(infoItem)
 
             accentColor = ContextCompat.getColor(this@MainActivity, R.color.colorAccent)
