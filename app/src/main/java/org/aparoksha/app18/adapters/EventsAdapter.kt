@@ -18,9 +18,9 @@ import java.util.*
  * Created by akshat on 7/3/18.
  */
 
-class EventsAdapter(val context:Context): RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
+class EventsAdapter : RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
 
-    var eventsList: List<Event> = listOf()
+    private var eventsList: List<Event> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.event_container,parent,false))
@@ -31,28 +31,30 @@ class EventsAdapter(val context:Context): RecyclerView.Adapter<EventsAdapter.Vie
         holder.bind(eventsList[position])
     }
 
-
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(event: Event) {
-            itemView.eventNameTV.text = event.name
 
-            val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
-            if (event.timestamp < 100L) {
-                itemView.eventTimeTV.text = "Online Event"
-            } else {
-                calendar.timeInMillis = event.timestamp.times(1000L)
+            with(itemView) {
+                eventNameTV.text = event.name
 
-                val sdf = SimpleDateFormat("MMM d, hh:mm a")
-                sdf.timeZone = TimeZone.getTimeZone("Asia/India")
-                itemView.eventTimeTV.text = sdf.format(calendar.time)
+                val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
+                if (event.timestamp < 100L) {
+                    eventTimeTV.text = "Online Event"
+                } else {
+                    calendar.timeInMillis = event.timestamp.times(1000L)
+
+                    val sdf = SimpleDateFormat("MMM d, hh:mm a")
+                    sdf.timeZone = TimeZone.getTimeZone("Asia/India")
+                    eventTimeTV.text = sdf.format(calendar.time)
+                }
+
+                GlideApp.with(context)
+                        .load(event.imageUrl)
+                        .placeholder(R.drawable.logo)
+                        .into(eventImage)
+
+                setOnClickListener { context.startActivity<EventDetailActivity>("id" to event.id) }
             }
-
-            GlideApp.with(context)
-                    .load(event.imageUrl)
-                    .placeholder(R.drawable.logo)
-                    .into(itemView.eventImage)
-
-            itemView.setOnClickListener { itemView.context.startActivity<EventDetailActivity>("id" to event.id) }
         }
     }
 

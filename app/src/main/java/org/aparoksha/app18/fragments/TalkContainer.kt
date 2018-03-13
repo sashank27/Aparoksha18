@@ -18,9 +18,9 @@ class TalkContainer: Fragment() {
     private val speakers = listOf<String>("Sahil Vaidya","Dr. Pawan Agarwal",
             "Varun Agarwal")
 
-    private val time = listOf<String>("March 16","March 17","March18")
+    private val time = listOf("March 16","March 17","March18")
 
-    private val images = listOf<Int>(R.drawable.talk_sahil,R.drawable.talk_pavan,R.drawable.talk_varun)
+    private val images = listOf(R.drawable.talk_sahil,R.drawable.talk_pavan,R.drawable.talk_varun)
 
     private var position = 0
 

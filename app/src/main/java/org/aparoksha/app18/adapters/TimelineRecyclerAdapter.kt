@@ -33,7 +33,7 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<TimelineRecyclerAdapter.Tim
         return TimelineView.getTimeLineViewType(position, itemCount)
     }
 
-    fun addEvents(items: List<Event>) {
+    fun updateEvents(items: List<Event>) {
         this.items = items.sortedBy { it.timestamp }
         notifyDataSetChanged()
     }

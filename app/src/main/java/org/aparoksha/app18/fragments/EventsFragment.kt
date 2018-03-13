@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_events.*
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import org.aparoksha.app18.R
 import org.aparoksha.app18.adapters.CategoryAdapter
 import org.aparoksha.app18.models.Event
@@ -20,39 +22,43 @@ import org.aparoksha.app18.viewModels.AppViewModel
 
 class EventsFragment: Fragment() {
 
+    private lateinit var appViewModel: AppViewModel
+    private lateinit var adapter: CategoryAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        appViewModel = AppViewModel.create(activity.application)
+        appViewModel.getEvents()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_events,container,false)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val eventViewModel = AppViewModel.create(activity.application)
+        launch(UI) {
 
-        eventViewModel.getEvents()
+            val fragment = this@EventsFragment
+            categoryRecyclerView.layoutManager = LinearLayoutManager(fragment.context,
+                    LinearLayoutManager.VERTICAL,false)
 
-        categoryRecyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+            adapter = CategoryAdapter()
+            categoryRecyclerView.adapter = adapter
 
-        val adapter = CategoryAdapter(context)
-        categoryRecyclerView.adapter = adapter
-
-        eventViewModel.events.observe(this, Observer {
-            it?.let {
-                if (!it.isEmpty()) {
-                    val list: MutableList<Event> = it as MutableList<Event>
-                    list.sortBy { it.timestamp }
-                    val categoryList: MutableList<String> = mutableListOf()
-                    list.forEach { categoryList.addAll(it.categories) }
-                    val categories: List<String> = categoryList.distinctBy { it }
-                    adapter.updateCategories(categories)
-                    adapter.updateEvents(list)
+            appViewModel.events.observe(fragment, Observer {
+                it?.let {
+                    if (!it.isEmpty()) {
+                        adapter.updateEvents(it)
+                    }
                 }
-            }
-        })
+            })
 
-        eventViewModel.dataFetchFailed.observe(this, Observer {
-            it?.let {
-                if(it) showAlert(activity)
-            }
-        })
+            appViewModel.dataFetchFailed.observe(fragment, Observer {
+                it?.let {
+                    if(it) showAlert(activity)
+                }
+            })
+        }
     }
 }

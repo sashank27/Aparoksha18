@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.firebase.ui.auth.IdpResponse
 import android.content.Intent
 import android.util.Log
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 
@@ -89,7 +90,15 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
             titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
 
             setOnTabSelectedListener { position, _ ->
-                fragmentNavController.switchTab(position)
+                when (position) {
+                    //0 -> startActivity<MainActivity>()
+                    1 -> startActivity<EventsActivity>()
+                    2 -> startActivity<MapActivity>()
+                    3 -> startActivity<UpdatesActivity>()
+                    4 -> startActivity<InfoActivity>()
+                }
+                finish()
+                //fragmentNavController.switchTab(position)
                 return@setOnTabSelectedListener true
             }
         }
