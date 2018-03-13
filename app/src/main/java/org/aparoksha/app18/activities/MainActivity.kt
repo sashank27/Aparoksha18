@@ -20,6 +20,7 @@ import com.firebase.ui.auth.IdpResponse
 import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DataSnapshot
@@ -97,7 +98,15 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
             titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
 
             setOnTabSelectedListener { position, _ ->
-                fragmentNavController.switchTab(position)
+                when (position) {
+                    //0 -> startActivity<MainActivity>()
+                    1 -> startActivity<EventsActivity>()
+                    2 -> startActivity<MapActivity>()
+                    3 -> startActivity<UpdatesActivity>()
+                    4 -> startActivity<InfoActivity>()
+                }
+                finish()
+                //fragmentNavController.switchTab(position)
                 return@setOnTabSelectedListener true
             }
         }
@@ -109,7 +118,7 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == Activity.RESULT_OK) {
                 toast("Signed In")
-                val database = FirebaseDatabase.getInstance()
+                /*val database = FirebaseDatabase.getInstance()
                 val ref = database.getReference("/users")
 
                 ref.addValueEventListener(object : ValueEventListener {
@@ -143,8 +152,8 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
 
                     override fun onCancelled(databaseError: DatabaseError) {
                         println("The read failed: " + databaseError.code)
-                    }
-                })
+                    }*/
+                //})
             } else {
                 toast("Please Sign In to use the app")
                 finish()

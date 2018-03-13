@@ -19,7 +19,7 @@ import org.aparoksha.app18.models.Sponsor
 
 class SponsorsAdapter(val context: Context) : RecyclerView.Adapter<SponsorsAdapter.ViewHolder>() {
 
-    var sponsorsList : List<Sponsor> = listOf()
+    private var sponsorsList : List<Sponsor> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.sponsor_container,parent,false)

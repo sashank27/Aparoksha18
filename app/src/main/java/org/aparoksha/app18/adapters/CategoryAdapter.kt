@@ -14,48 +14,41 @@ import org.aparoksha.app18.models.Event
  * Created by akshat on 8/3/18.
  */
 
-class CategoryAdapter(val context: Context): RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-    var categories: List<String>
-    var events: List<Event>
+    var events = listOf<Pair<String, List<Event>>>()
 
-    init {
-        categories = listOf()
-        events = listOf()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-            ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.category_container,parent,false))
+            ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.category_container, parent, false))
 
-    override fun getItemCount(): Int = categories.size
+    override fun getItemCount(): Int = events.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(categories.get(position))
+        holder.bind(events[position])
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)  {
-        fun bind(category: String) {
-            val informalList = events.map { item -> if(item.categories.contains(category)) item else null}.filterNotNull()
-            itemView.textView.text = category.substring(0,1).toUpperCase() + category.substring(1)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(pair: Pair<String, List<Event>>) {
+            val (category, events) = pair
 
-            itemView.eventsRecyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+            itemView.textView.text = category.capitalize()
+            itemView.eventsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             itemView.eventsRecyclerView.isDrawingCacheEnabled = true
             itemView.eventsRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
 
             val adapter = EventsAdapter(context)
             itemView.eventsRecyclerView.adapter = adapter
-
-            adapter.updateEvents(informalList)
+            adapter.updateEvents(events)
         }
     }
 
     fun updateEvents(events: List<Event>) {
-        this.events = events
+        val categories = events.map { it.categories }.flatten().distinct()
+        this.events = categories.map { category ->
+            category to events.filter { it.categories.contains(category) }
+        }.toList()
         notifyDataSetChanged()
     }
 
-    fun updateCategories(categories: List<String>) {
-        this.categories = categories
-        notifyDataSetChanged()
-    }
 }

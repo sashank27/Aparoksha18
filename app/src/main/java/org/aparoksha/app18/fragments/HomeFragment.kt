@@ -14,6 +14,8 @@ import com.google.zxing.WriterException
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.android.synthetic.main.content_home_fragment.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import org.aparoksha.app18.R
 import org.aparoksha.app18.adapters.FlagshipViewPagerAdapter
 import org.aparoksha.app18.ui.ParallaxPageTransformer
@@ -40,53 +42,56 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = FlagshipViewPagerAdapter(childFragmentManager, flagshipData)
-        val sharedPrefs = activity.getSharedPreferences("ApkPrefs", Context.MODE_PRIVATE)
-        val key = sharedPrefs.getString("key","")
-        if(key.equals("")) {
-            AuthUI.getInstance().signOut(activity)
-        }
+        launch(UI) {
+            val adapter = FlagshipViewPagerAdapter(childFragmentManager, flagshipData)
+            val sharedPrefs = activity.getSharedPreferences("ApkPrefs", Context.MODE_PRIVATE)
+            val key = sharedPrefs.getString("key","")
+            /*if(key.equals("")) {
+                AuthUI.getInstance().signOut(activity)
+            }*/
 
-        viewPager.adapter = adapter
-        viewPager.setPageTransformer(true, ParallaxPageTransformer())
-        viewPager.startAutoScroll(1000)
-        viewPager.setAutoScrollDurationFactor(15.0)
+            viewPager.adapter = adapter
+            viewPager.setPageTransformer(true, ParallaxPageTransformer())
+            viewPager.startAutoScroll(1000)
+            viewPager.setAutoScrollDurationFactor(15.0)
 
-        signOutBtn.setOnClickListener {
-            AuthUI.getInstance().signOut(activity)
-            activity.finish()
-        }
+            signOutBtn.setOnClickListener {
+                AuthUI.getInstance().signOut(activity)
+                activity.finish()
+            }
 
-        val mFirebaseDatabase = FirebaseDatabase.getInstance()
-        val userRef = mFirebaseDatabase.getReference("users/"+key)
 
-        val userListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val user = dataSnapshot.getValue<User>(User::class.java)
+            val mFirebaseDatabase = FirebaseDatabase.getInstance()
+            val userRef = mFirebaseDatabase.getReference("users/"+key)
 
-                if (user != null) {
-                    userUidTV.text = user.id
-                } else {
+            val userListener = object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val user = dataSnapshot.getValue<User>(User::class.java)
+
+                    if (user != null) {
+                        userUidTV.text = user.id
+                    } else {
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Log.w("error", "loadPost:onCancelled", databaseError.toException())
                 }
             }
+            userRef.addValueEventListener(userListener)
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                Log.w("error", "loadPost:onCancelled", databaseError.toException())
+            val text = "This is sample text" // Whatever you need to encode in the QR code
+            val multiFormatWriter = MultiFormatWriter()
+
+            try {
+                val bitmap = BarcodeEncoder()
+                        .createBitmap(multiFormatWriter
+                                .encode(text, BarcodeFormat.QR_CODE,300,300))
+                userQRcode.setImageBitmap(bitmap)
+            } catch (e : WriterException) {
+                e.printStackTrace()
             }
         }
-
-        val text = "This is sample text" // Whatever you need to encode in the QR code
-        val multiFormatWriter = MultiFormatWriter()
-
-        try {
-            val bitmap = BarcodeEncoder()
-                    .createBitmap(multiFormatWriter
-                            .encode(text, BarcodeFormat.QR_CODE,700,700))
-            userQRcode.setImageBitmap(bitmap)
-        } catch (e : WriterException) {
-            e.printStackTrace()
-        }
-        userRef.addValueEventListener(userListener)
     }
 
 }
