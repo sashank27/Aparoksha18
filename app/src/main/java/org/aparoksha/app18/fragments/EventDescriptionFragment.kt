@@ -49,6 +49,7 @@ class EventDescriptionFragment : Fragment() {
         })
 
         descriptionTV.text = event.description
+        facebookLinkTV.text = event.facebookEventLink
 
         if (event.facebookEventLink.isBlank()) {
             facebookLinkLayout.visibility = View.GONE

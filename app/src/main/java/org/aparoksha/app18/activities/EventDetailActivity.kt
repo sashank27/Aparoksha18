@@ -9,6 +9,7 @@ import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.activity_event_detail.*
 import org.aparoksha.app18.R
 import android.graphics.BitmapFactory
+import android.util.Log
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import org.aparoksha.app18.GlideApp
@@ -37,6 +38,12 @@ class EventDetailActivity : AppCompatActivity() {
             }
         })
 
+        if(eventID == 113L)
+        {
+            Log.d("url",event.imageUrl)
+            Log.d("fbLink",event.facebookEventLink)
+
+        }
         if (eventID != 0L) setEventDetails()
         setViewPager(eventID)
     }

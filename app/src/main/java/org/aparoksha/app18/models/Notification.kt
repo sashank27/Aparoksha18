@@ -5,7 +5,7 @@ package org.aparoksha.app18
  */
 data class Notification(
         val description: String = "",
-        val eventID : Long = 0,
+        val eventID : String = "",
         val senderName : String = "",
         val timestamp : Long = 0,
         val title : String = "",

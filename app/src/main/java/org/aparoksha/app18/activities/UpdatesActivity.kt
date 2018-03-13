@@ -18,6 +18,10 @@ class UpdatesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_updates)
 
+        supportFragmentManager.beginTransaction()
+                .add(R.id.updateFragment, UpdatesFragment().newInstance())
+                .commit()
+
         initBottomNavigation()
     }
     private fun initBottomNavigation() {

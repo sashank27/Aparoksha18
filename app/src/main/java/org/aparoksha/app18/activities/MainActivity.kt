@@ -20,14 +20,13 @@ import com.firebase.ui.auth.IdpResponse
 import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
+import com.google.firebase.database.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import org.aparoksha.app18.models.User
+import com.google.firebase.database.DataSnapshot
+
+
 
 
 class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener {
@@ -118,42 +117,39 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == Activity.RESULT_OK) {
                 toast("Signed In")
-                /*val database = FirebaseDatabase.getInstance()
+                val database = FirebaseDatabase.getInstance()
                 val ref = database.getReference("/users")
 
-                ref.addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        if(dataSnapshot.value != null) {
-                            val map: Map<String, User> = dataSnapshot.value as Map<String, User>
-                            val users = map.values
-                            var newUser = true
-                            val user = FirebaseAuth.getInstance().currentUser!!
-                            if (users != null) {
-                                users.forEach { if (it.email.equals(user.email)) newUser = false }
+                ref.addListenerForSingleValueEvent(object :ValueEventListener{
+
+                    override fun onDataChange(p0: DataSnapshot) {
+                        val users: MutableList<User?> = mutableListOf()
+                        if(p0.value != null) {
+                            for (snapshot in p0.getChildren()) {
+                                users.add(snapshot.getValue(User::class.java))
                             }
-                            if (!newUser) {
+                            var oldUser = false
+                            val user = FirebaseAuth.getInstance().currentUser!!
+                            users.forEach {
+                                if (it != null) {
+                                    if (it.email.equals(user.email)) oldUser = true
+                                }
+                            }
+
+                            if (!oldUser) {
                                 val mFirebaseDatabase = FirebaseDatabase.getInstance()
                                 val databaseReference = mFirebaseDatabase.getReference("users")
-                                val key = databaseReference.push().key
                                 val sharedPrefs = getSharedPreferences("ApkPrefs", Context.MODE_PRIVATE)
-                                sharedPrefs.edit().putString("key", key)
-                                databaseReference.child(key).setValue(User(if (user.displayName == null) "" else user.displayName!!, user.email!!, ""))
+                                databaseReference.push().setValue(User("", user.email!!, ""))
                             }
-                        } else {
-                            val user = FirebaseAuth.getInstance().currentUser!!
-                            val mFirebaseDatabase = FirebaseDatabase.getInstance()
-                            val databaseReference = mFirebaseDatabase.getReference("users")
-                            val key = databaseReference.push().key
-                            val sharedPrefs = getSharedPreferences("ApkPrefs", Context.MODE_PRIVATE)
-                            sharedPrefs.edit().putString("key", key)
-                            databaseReference.child(key).setValue(User(if (user.displayName == null) "" else user.displayName!!, user.email!!, ""))
                         }
                     }
 
-                    override fun onCancelled(databaseError: DatabaseError) {
-                        println("The read failed: " + databaseError.code)
-                    }*/
-                //})
+                    override fun onCancelled(p0: DatabaseError) {
+                        println("The read failed: " + p0.code)
+                    }
+
+                })
             } else {
                 toast("Please Sign In to use the app")
                 finish()

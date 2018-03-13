@@ -45,10 +45,7 @@ class HomeFragment : Fragment() {
         launch(UI) {
             val adapter = FlagshipViewPagerAdapter(childFragmentManager, flagshipData)
             val sharedPrefs = activity.getSharedPreferences("ApkPrefs", Context.MODE_PRIVATE)
-            val key = sharedPrefs.getString("key","")
-            /*if(key.equals("")) {
-                AuthUI.getInstance().signOut(activity)
-            }*/
+            val key = sharedPrefs.getString("key","aa")
 
             viewPager.adapter = adapter
             viewPager.setPageTransformer(true, ParallaxPageTransformer())
@@ -61,7 +58,7 @@ class HomeFragment : Fragment() {
             }
 
 
-            val mFirebaseDatabase = FirebaseDatabase.getInstance()
+           /* val mFirebaseDatabase = FirebaseDatabase.getInstance()
             val userRef = mFirebaseDatabase.getReference("users/"+key)
 
             val userListener = object : ValueEventListener {
@@ -78,7 +75,7 @@ class HomeFragment : Fragment() {
                     Log.w("error", "loadPost:onCancelled", databaseError.toException())
                 }
             }
-            userRef.addValueEventListener(userListener)
+            userRef.addValueEventListener(userListener)*/
 
             val text = "This is sample text" // Whatever you need to encode in the QR code
             val multiFormatWriter = MultiFormatWriter()
