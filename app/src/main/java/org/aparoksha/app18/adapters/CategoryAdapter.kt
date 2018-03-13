@@ -14,7 +14,7 @@ import org.aparoksha.app18.models.Event
  * Created by akshat on 8/3/18.
  */
 
-class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter() : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     var events = listOf<Pair<String, List<Event>>>()
 
@@ -32,14 +32,15 @@ class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapt
         fun bind(pair: Pair<String, List<Event>>) {
             val (category, events) = pair
 
-            itemView.textView.text = category.capitalize()
-            itemView.eventsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            itemView.eventsRecyclerView.isDrawingCacheEnabled = true
-            itemView.eventsRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
+            with(itemView) {
+                itemView.textView.text = category.capitalize()
+                itemView.eventsRecyclerView.layoutManager = LinearLayoutManager(context,
+                        LinearLayoutManager.HORIZONTAL, false)
 
-            val adapter = EventsAdapter(context)
-            itemView.eventsRecyclerView.adapter = adapter
-            adapter.updateEvents(events)
+                val adapter = EventsAdapter()
+                itemView.eventsRecyclerView.adapter = adapter
+                adapter.updateEvents(events)
+            }
         }
     }
 
