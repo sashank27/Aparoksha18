@@ -20,7 +20,7 @@ import java.util.*
 
 class EventsAdapter(val context:Context): RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
 
-    var eventsList: List<Event> = listOf()
+    private var eventsList: List<Event> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.event_container,parent,false))
@@ -30,7 +30,6 @@ class EventsAdapter(val context:Context): RecyclerView.Adapter<EventsAdapter.Vie
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(eventsList[position])
     }
-
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(event: Event) {

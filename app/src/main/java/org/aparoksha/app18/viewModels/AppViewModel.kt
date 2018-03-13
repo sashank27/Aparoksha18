@@ -45,16 +45,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         appDb = AppDB.getInstance(context)
     }
 
-    fun getEventById(id: Long): Event? {
-        val eventsList = appDb.getAllEvents()
-
-        for (event in eventsList) {
-            if (event.id == id) {
-                return event
-            }
-        }
-        return null
-    }
+    fun getEventById(id: Long) = events.value?.firstOrNull { it.id == id }
 
     fun getEvents() {
         launch(UI) {
@@ -78,12 +69,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         launch(UI) {
             val fetchedEvents = githubService.fetchEvents()
             try {
-                events.value = fetchedEvents.await()
-                appDb.storeEvents(events.value!!)
+                val eventsNew = fetchedEvents.await()
+                events.value = eventsNew
+                appDb.storeEvents(eventsNew)
             } catch (e: Exception) {
-                if (events.value!!.isNotEmpty()) {
-
-                }
                 println(e)
             }
         }
@@ -94,7 +83,6 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     fun getTeam() {
         val teamList = appDb.getAllTeamMembers()
         team.value = teamList
-
         fetchTeam()
     }
 
