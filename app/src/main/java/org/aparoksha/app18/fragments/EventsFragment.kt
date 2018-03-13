@@ -28,6 +28,7 @@ class EventsFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appViewModel = AppViewModel.create(activity.application)
+        appViewModel.getEvents()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -37,12 +38,12 @@ class EventsFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         launch(UI) {
+
             val fragment = this@EventsFragment
-            appViewModel.getEvents()
             categoryRecyclerView.layoutManager = LinearLayoutManager(fragment.context,
                     LinearLayoutManager.VERTICAL,false)
 
-            adapter = CategoryAdapter(fragment.context)
+            adapter = CategoryAdapter()
             categoryRecyclerView.adapter = adapter
 
             appViewModel.events.observe(fragment, Observer {
