@@ -28,7 +28,7 @@ class EventsFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appViewModel = AppViewModel.create(activity.application)
-        appViewModel.getEvents()
+        appViewModel.getEvents(activity,true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =

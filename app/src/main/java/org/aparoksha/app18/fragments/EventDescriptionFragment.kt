@@ -40,37 +40,39 @@ class EventDescriptionFragment : Fragment() {
 
         val eventID = arguments.getLong("eventId")
         val eventViewModel = AppViewModel.create(activity.application)
-        if (eventViewModel.getEventById(eventID) != null) event = eventViewModel.getEventById(eventID)!!
+        eventViewModel.getEvents(activity,false)
 
-        eventViewModel.event.observe(this, Observer {
-            it?.let{
-                event = it
-            }
-        })
+        eventViewModel.events.observe(this, Observer {
+            it?.let {
+                val temp = it.find { it.id == eventID }
+                if (it.find { temp?.id == eventID } != null)
+                    event = temp!!
 
-        descriptionTV.text = event.description
-        facebookLinkTV.text = event.facebookEventLink
+                descriptionTV.text = event.description
+                facebookLinkTV.text = event.facebookEventLink
 
-        if (event.facebookEventLink.isBlank()) {
-            facebookLinkLayout.visibility = View.GONE
-        }
+                if (event.facebookEventLink.isBlank()) {
+                    facebookLinkLayout.visibility = View.GONE
+                }
 
-        if (event.additionalInfo.isEmpty()) {
-            additionalInfoLayout.visibility = View.GONE
-        } else {
-            additionalInfoTV.text = event.additionalInfo.joinToString { "\n" }
-        }
+                if (event.additionalInfo.isEmpty()) {
+                    additionalInfoLayout.visibility = View.GONE
+                } else {
+                    additionalInfoTV.text = event.additionalInfo.joinToString { "\n" }
+                }
 
-        facebookLinkLayout.setOnClickListener({
-            val url = event.facebookEventLink
-            try {
-                activity.packageManager.getPackageInfo("com.facebook.katana", 0)
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("fb://facewebmodal/f?href=$url"))
-                activity.startActivity(intent)
-            } catch (e: Exception) {
-                val builder = CustomTabsIntent.Builder()
-                val customTabsIntent = builder.build()
-                customTabsIntent.launchUrl(activity, Uri.parse(url))
+                facebookLinkLayout.setOnClickListener({
+                    val url = event.facebookEventLink
+                    try {
+                        activity.packageManager.getPackageInfo("com.facebook.katana", 0)
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("fb://facewebmodal/f?href=$url"))
+                        activity.startActivity(intent)
+                    } catch (e: Exception) {
+                        val builder = CustomTabsIntent.Builder()
+                        val customTabsIntent = builder.build()
+                        customTabsIntent.launchUrl(activity, Uri.parse(url))
+                    }
+                })
             }
         })
     }

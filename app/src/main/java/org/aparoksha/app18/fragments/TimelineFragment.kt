@@ -45,13 +45,14 @@ class TimelineFragment : Fragment() {
 
         launch(UI) {
             val fragment = this@TimelineFragment
-            eventViewModel.getEvents()
+            eventViewModel.getEvents(activity,true)
 
             timeline_recycler_view.layoutManager = LinearLayoutManager(fragment.context,
                     LinearLayoutManager.VERTICAL, false)
 
             timeline_recycler_view.adapter = null
             timeline_recycler_view.adapter = adapter
+
             eventViewModel.events.value?.apply {
                 if(isNotEmpty()) adapter.updateEvents(this)
             }

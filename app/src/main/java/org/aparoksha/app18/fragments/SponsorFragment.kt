@@ -28,7 +28,7 @@ class SponsorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val eventViewModel = AppViewModel.create(activity.application)
-        eventViewModel.getSponsors()
+        eventViewModel.getSponsors(activity)
 
         val adapter = SponsorsAdapter(activity)
         sponsorsList.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)

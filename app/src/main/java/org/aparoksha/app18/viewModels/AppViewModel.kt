@@ -1,5 +1,6 @@
 package org.aparoksha.app18.viewModels
 
+import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
@@ -45,14 +46,15 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         appDb = AppDB.getInstance(context)
     }
 
-    fun getEventById(id: Long) = events.value?.firstOrNull { it.id == id }
+    fun getEventById(eventID: Long)  = appDb.getEventByID(eventID)
 
-    fun getEvents() {
+    fun getEvents(activity: Activity,fetch: Boolean) {
         launch(UI) {
             val eventsList = appDb.getAllEvents()
             events.value = eventsList
+            if(!isNetworkConnectionAvailable(activity) && eventsList.size == 0) showAlert(activity)
         }
-        fetchEvents()
+        if (fetch) fetchEvents()
     }
 
     private fun fetchEvents () {
@@ -80,9 +82,13 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    fun getTeam() {
-        val teamList = appDb.getAllTeamMembers()
-        team.value = teamList
+    fun getTeam(activity: Activity) {
+        launch(UI) {
+            val teamList = appDb.getAllTeamMembers()
+            team.value = teamList
+            if(!isNetworkConnectionAvailable(activity) && teamList.size == 0) showAlert(activity)
+        }
+
         fetchTeam()
     }
 
@@ -113,9 +119,12 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    fun getSponsors() {
-        val sponsorList = appDb.getAllSponsors()
-        sponsor.value = sponsorList
+    fun getSponsors(activity: Activity) {
+        launch(UI) {
+            val sponsorList = appDb.getAllSponsors()
+            sponsor.value = sponsorList
+            if(!isNetworkConnectionAvailable(activity) && sponsorList.size == 0) showAlert(activity)
+        }
 
         fetchSponsors()
     }

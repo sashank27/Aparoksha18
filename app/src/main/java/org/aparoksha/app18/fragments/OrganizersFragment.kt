@@ -50,41 +50,30 @@ class OrganizersFragment : Fragment() {
         val eventID = arguments.getLong("eventId")
 
         val eventViewModel = AppViewModel.create(activity.application)
-        if (eventViewModel.getEventById(eventID) != null) event = eventViewModel.getEventById(eventID)!!
+        event = eventViewModel.getEventById(eventID)
 
-        eventViewModel.event.observe(this, Observer {
-            it?.let{
-                event = it
-            }
-        })
+                if (event.organizers.isEmpty()) {
+                    noOrganizersTV.visibility = View.VISIBLE
+                    organizerLL.visibility = View.GONE
+                }
 
-        /*val organizer1 = Organizer("xyzabcde", 8877663242)
-        val organizer2 = Organizer("xyzabcdf", 5677663242)
-        val organizer3 = Organizer("xyzabcdty", 8877543242)
+                event.organizers.forEach {
+                    val v = View.inflate(activity, R.layout.organizer_layout, null)
+                    v.organizerNameTV.text = it.name
+                    callNumber = it.phoneNumber.toString()
+                    v.contactTV.text = callNumber
 
-        val testOrganizers = listOf(organizer1, organizer2, organizer3)
+                    v.callButton.setOnClickListener({
+                        callNumber = v.contactTV.text.toString()
+                        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.CALL_PHONE), requestCode)
+                        } else
+                            startActivity(Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:$callNumber")))
+                    })
+                    organizerLL.addView(v)
+                }
 
-        val event = Event(organizers = testOrganizers)
-*/
-        if (event.organizers.isEmpty()) {
-            noOrganizersTV.visibility = View.VISIBLE
-            organizerLL.visibility = View.GONE
-        }
 
-        event.organizers.map {
-            val v = View.inflate(activity, R.layout.organizer_layout, null)
-            v.organizerNameTV.text = it.name
-            callNumber = it.phoneNumber.toString()
-            v.contactTV.text = callNumber
 
-            v.callButton.setOnClickListener({
-                callNumber = v.contactTV.text.toString()
-                if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.CALL_PHONE), requestCode)
-                } else
-                    startActivity(Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:$callNumber")))
-            })
-            organizerLL.addView(v)
-        }
     }
 }

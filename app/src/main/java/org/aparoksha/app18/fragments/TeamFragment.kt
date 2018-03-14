@@ -29,7 +29,7 @@ class TeamFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val eventViewModel = AppViewModel.create(activity.application)
-        eventViewModel.getTeam()
+        eventViewModel.getTeam(activity)
 
         val adapter = TeamAdapter(context)
 

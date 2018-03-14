@@ -31,7 +31,7 @@ class EventDetailActivity : AppCompatActivity() {
         val eventID = intent.getLongExtra("id",0)
 
         val eventViewModel = AppViewModel.create(application)
-        eventViewModel.getEvents()
+        eventViewModel.getEvents(this,false)
 
         eventViewModel.events.observe(this, Observer {
             it?.let {
