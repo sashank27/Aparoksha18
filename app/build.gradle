@@ -52,6 +52,7 @@ dependencies {
     implementation 'com.google.zxing:core:3.2.1'
     implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
 
+    implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.google.firebase:firebase-core:11.4.2'
     implementation 'com.google.firebase:firebase-database:11.4.2'
     implementation 'com.google.firebase:firebase-messaging:11.4.2'

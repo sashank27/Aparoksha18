@@ -36,11 +36,6 @@ class TimelineFragment : Fragment() {
             inflater.inflate(R.layout.fragment_timeline, container, false)
 
 
-    override fun onResume() {
-        super.onResume()
-
-    }
-
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -60,9 +55,7 @@ class TimelineFragment : Fragment() {
 
             eventViewModel.events.observe(fragment, Observer {
                 it?.let {
-                    if (it.isNotEmpty()) {
-                        adapter.updateEvents(it)
-                    }
+                    if (it.isNotEmpty()) adapter.updateEvents(it)
                 }
             })
 

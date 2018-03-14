@@ -23,10 +23,6 @@ class SplashActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
-        val path = "android.resource://" + packageName + "/" + R.raw.splash_video
-        splash_video.setVideoURI(Uri.parse(path))
-        splash_video.start()
     }
 
     private fun fetchLatestData() {

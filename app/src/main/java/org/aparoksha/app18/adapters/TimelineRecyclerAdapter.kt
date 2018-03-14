@@ -21,7 +21,8 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<TimelineRecyclerAdapter.Tim
     private var items: List<Event> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeLineViewHolder =
-            TimeLineViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_timeline_line_padding,parent,false),viewType)
+            TimeLineViewHolder(LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_timeline_line_padding,parent,false),viewType)
 
     override fun getItemCount(): Int = items.size
 
@@ -34,8 +35,10 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<TimelineRecyclerAdapter.Tim
     }
 
     fun updateEvents(items: List<Event>) {
-        this.items = items.sortedBy { it.timestamp }
-        notifyDataSetChanged()
+        if(this.items.isEmpty()) {
+            this.items = items.sortedBy { it.timestamp }
+            notifyDataSetChanged()
+        }
     }
 
     class TimeLineViewHolder(itemView: View, viewType: Int) : RecyclerView.ViewHolder(itemView) {
@@ -49,10 +52,11 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<TimelineRecyclerAdapter.Tim
                 eventNameTV.text = event.name
                 val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
                 if (event.timestamp < 20000L) {
-                    eventDateTV.visibility = View.INVISIBLE
+                    eventDateTV.visibility = View.GONE
                     eventTimeTV.text = "Online Event"
                 } else {
-                    calendar.timeInMillis = event.timestamp.times(1000L)
+                    eventDateTV.visibility = View.VISIBLE
+                    calendar.timeInMillis = event.timestamp * 1000L
 
                     eventDateTV.visibility = View.VISIBLE
                     var sdf = SimpleDateFormat("MMMM d")
@@ -70,9 +74,9 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<TimelineRecyclerAdapter.Tim
                         .into(itemView.eventImage)
 
                 when {
-                    System.currentTimeMillis() - event.timestamp.times(1000L) > 3600000 ->
+                    System.currentTimeMillis() - event.timestamp.times(1000L) > event.duration * 60 * 1000 ->
                         time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_inactive, android.R.color.darker_gray))
-                    System.currentTimeMillis() - event.timestamp.times(1000L) in 1..3599999 ->
+                    System.currentTimeMillis() - event.timestamp.times(1000L) in 1..event.duration * 60 * 1000 ->
                         time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_active, android.R.color.darker_gray))
                     else ->
                         time_marker.setMarker(ContextCompat.getDrawable(context, R.drawable.ic_marker), android.R.color.darker_gray)
