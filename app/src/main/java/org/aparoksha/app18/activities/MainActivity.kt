@@ -1,6 +1,7 @@
 package org.aparoksha.app18.activities
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
     private lateinit var fragmentNavController: FragNavController
     private lateinit var fragmentControllerBuilder: FragNavController.Builder
     private var RC_SIGN_IN = 123
+    private lateinit var pd :ProgressDialog
 
     override fun getRootFragment(index: Int): Fragment {
         return when (index) {
@@ -53,8 +55,12 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        pd = ProgressDialog(this,R.style.AppCompatAlertDialogStyle)
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null) {
+            pd.setTitle("Signing Up")
+            pd.setMessage("Loading...")
+            pd.show()
             startActivityForResult(
                     AuthUI.getInstance()
                             .createSignInIntentBuilder()
@@ -63,6 +69,7 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
                                     Arrays.asList<AuthUI.IdpConfig>(AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
                             .build(),
                     RC_SIGN_IN)
+
         }
 
         initFragmentManagement(savedInstanceState)
@@ -129,10 +136,18 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
                                 users.add(snapshot.getValue(User::class.java))
                             }
                             var oldUser = false
+                            var key = ""
                             val user = FirebaseAuth.getInstance().currentUser!!
                             users.forEach {
                                 if (it != null) {
                                     if (it.email.equals(user.email)) oldUser = true
+                                    for (snapshot in p0.getChildren()) {
+                                        if (snapshot.getValue(User::class.java)!!.email.equals(user.email)) {
+                                            key = snapshot.key
+                                            val sharedPrefs = getSharedPreferences("ApkPrefs", Context.MODE_PRIVATE)
+                                            sharedPrefs.edit().putString("key",key).commit()
+                                        }
+                                    }
                                 }
                             }
 
@@ -140,9 +155,16 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
                                 val mFirebaseDatabase = FirebaseDatabase.getInstance()
                                 val databaseReference = mFirebaseDatabase.getReference("users")
                                 val sharedPrefs = getSharedPreferences("ApkPrefs", Context.MODE_PRIVATE)
-                                databaseReference.push().setValue(User("", user.email!!, ""))
+                                val key = databaseReference.push().key
+                                sharedPrefs.edit().putString("key",key).commit()
+                                databaseReference.child(key).setValue(user.displayName?.let { User(it, user.email!!, "") })
+                            } else {
+
                             }
                         }
+                        pd.dismiss()
+                        startActivity<MainActivity>()
+                        finish()
                     }
 
                     override fun onCancelled(p0: DatabaseError) {

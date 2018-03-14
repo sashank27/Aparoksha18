@@ -48,7 +48,8 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<TimelineRecyclerAdapter.Tim
             with(itemView) {
                 eventNameTV.text = event.name
                 val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
-                if (event.timestamp < 100L) {
+                if (event.timestamp < 20000L) {
+                    eventDateTV.visibility = View.INVISIBLE
                     eventTimeTV.text = "Online Event"
                 } else {
                     calendar.timeInMillis = event.timestamp.times(1000L)
@@ -68,12 +69,12 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<TimelineRecyclerAdapter.Tim
                         .into(itemView.eventImage)
 
                 when {
-                    System.currentTimeMillis() - event.timestamp > 3600000 ->
+                    System.currentTimeMillis() - event.timestamp.times(1000L) > 3600000 ->
                         time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_inactive, android.R.color.darker_gray))
-                    System.currentTimeMillis() - event.timestamp in 1..3599999 ->
-                        time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_active, R.color.colorPrimary))
+                    System.currentTimeMillis() - event.timestamp.times(1000L) in 1..3599999 ->
+                        time_marker.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_active, android.R.color.darker_gray))
                     else ->
-                        time_marker.setMarker(ContextCompat.getDrawable(context, R.drawable.ic_marker), ContextCompat.getColor(context, R.color.colorPrimary))
+                        time_marker.setMarker(ContextCompat.getDrawable(context, R.drawable.ic_marker), android.R.color.darker_gray)
                 }
 
                 itemView.cardView.setOnClickListener {

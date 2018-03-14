@@ -57,9 +57,7 @@ class HomeFragment : Fragment() {
                 activity.finish()
             }
 
-            userUidTV.text = "APK18"
-
-           /* val mFirebaseDatabase = FirebaseDatabase.getInstance()
+            val mFirebaseDatabase = FirebaseDatabase.getInstance()
             val userRef = mFirebaseDatabase.getReference("users/"+key)
 
             val userListener = object : ValueEventListener {
@@ -67,8 +65,19 @@ class HomeFragment : Fragment() {
                     val user = dataSnapshot.getValue<User>(User::class.java)
 
                     if (user != null) {
-                        userUidTV.text = user.id
-                    } else {
+                        if(userUidTV != null)
+                            userUidTV.text = user.id
+                        val text = user.id
+                        val multiFormatWriter = MultiFormatWriter()
+
+                        try {
+                            val bitmap = BarcodeEncoder()
+                                    .createBitmap(multiFormatWriter
+                                            .encode(text, BarcodeFormat.QR_CODE,300,300))
+                            userQRcode.setImageBitmap(bitmap)
+                        } catch (e : WriterException) {
+                            e.printStackTrace()
+                        }
                     }
                 }
 
@@ -76,19 +85,7 @@ class HomeFragment : Fragment() {
                     Log.w("error", "loadPost:onCancelled", databaseError.toException())
                 }
             }
-            userRef.addValueEventListener(userListener)*/
-
-            val text = "This is sample text" // Whatever you need to encode in the QR code
-            val multiFormatWriter = MultiFormatWriter()
-
-            try {
-                val bitmap = BarcodeEncoder()
-                        .createBitmap(multiFormatWriter
-                                .encode(text, BarcodeFormat.QR_CODE,300,300))
-                userQRcode.setImageBitmap(bitmap)
-            } catch (e : WriterException) {
-                e.printStackTrace()
-            }
+            userRef.addValueEventListener(userListener)
         }
     }
 

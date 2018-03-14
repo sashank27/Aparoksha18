@@ -72,8 +72,11 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             val fetchedEvents = githubService.fetchEvents()
             try {
                 val eventsNew = fetchedEvents.await()
-                events.value = eventsNew
-                appDb.storeEvents(eventsNew)
+                val finalEvents = eventsNew.map {
+                    Event(it.id,it.name,it.description,it.location,it.timestamp + ((330*60)),it.duration,it.imageUrl,it.categories,it.additionalInfo,it.facebookEventLink,it.organizers)
+                }
+                events.value = finalEvents
+                appDb.storeEvents(finalEvents)
             } catch (e: Exception) {
                 println(e)
             }

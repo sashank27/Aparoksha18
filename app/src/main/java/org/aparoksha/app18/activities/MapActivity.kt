@@ -48,7 +48,7 @@ class MapActivity : AppCompatActivity() {
                     3 -> startActivity<UpdatesActivity>()
                     4 -> startActivity<InfoActivity>()
                 }
-
+                finish()
                 return@setOnTabSelectedListener true
             }
         }
