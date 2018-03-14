@@ -5,9 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#485382"
+    android:background="#2a2f43"
     android:layout_margin="10dp">
-
 
     <TextView
         android:id="@+id/titleTV"
@@ -15,9 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:textSize="20sp"
-        android:textColor="@android:color/white"
         android:fontFamily="@font/circular_std_book_font"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="TextView" />

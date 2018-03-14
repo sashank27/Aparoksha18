@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -13,12 +14,12 @@
             android:id="@+id/descriptionTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
+            android:fontFamily="@font/cabin"
             android:padding="10dp"
             android:text="@string/lorem_long"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:typeface="sans" />
+            android:textSize="22sp"
+            android:typeface="normal" />
 
         <LinearLayout
             android:id="@+id/facebookLinkLayout"
@@ -30,20 +31,20 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:fontFamily="@font/circular_std_book_font"
+                android:padding="5dp"
                 android:text="Find on Facebook"
-                android:textSize="20sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/facebookLinkTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
+                android:fontFamily="@font/cabin"
                 android:padding="5dp"
                 android:text="https://facebook.com/events/23535"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="22sp" />
 
         </LinearLayout>
 
@@ -57,20 +58,20 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:fontFamily="@font/circular_std_book_font"
+                android:padding="5dp"
                 android:text="Additional Information"
-                android:textSize="20sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/additionalInfoTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
+                android:fontFamily="@font/cabin"
                 android:padding="5dp"
                 android:text="https://facebook.com/events/23535"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="22sp" />
 
         </LinearLayout>
 

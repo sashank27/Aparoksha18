@@ -14,6 +14,7 @@
         android:textSize="35sp"
         android:padding="10dp"
         tools:text="category 1"
+        android:textColor="@color/colorAccent"
         android:fontFamily="@font/circular_std_book_font" />
 
     <android.support.v7.widget.RecyclerView

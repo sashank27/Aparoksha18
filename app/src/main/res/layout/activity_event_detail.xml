@@ -5,56 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="@color/colorPrimary"
-            app:titleEnabled="false">
-
-            <ImageView
-                android:id="@+id/headerImageView"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:layout_collapseMode="parallax"
-                android:scaleType="centerCrop"
-                android:src="@drawable/hint"/>
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-                <TextView
-                    android:id="@+id/titleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_gravity="center_horizontal|top"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginStart="50dp"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="Event Name"
-                    android:textColor="@android:color/black"
-                    android:textSize="25sp"
-                    app:layout_collapseMode="pin" />
-
-            </android.support.v7.widget.Toolbar>
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-
-    </android.support.design.widget.AppBarLayout>
--->
     <android.support.constraint.Guideline
         android:id="@+id/guideline1"
         android:layout_width="match_parent"
@@ -103,13 +53,13 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/circular_std_book_font"
-        android:text="Hack In The North"
         android:textAlignment="viewEnd"
         android:textColor="@android:color/white"
-        android:textSize="32sp"
+        android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline4" />
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        tools:text="Hack In The North" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/eventSecondIV"
@@ -129,14 +79,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/archivo_black"
-        android:text="October 17, 11:30 AM"
+        android:fontFamily="@font/cabin"
         android:textAlignment="viewEnd"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline1" />
+        app:layout_constraintTop_toTopOf="@+id/guideline1"
+        tools:text="October 17, 11:30 AM" />
 
     <TextView
         android:id="@+id/eventLocationTV"
@@ -144,17 +93,16 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/roboto"
-        android:text="Main Auditorium"
+        android:fontFamily="@font/cabin"
         android:textAlignment="viewEnd"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/eventTimeTV" />
+        app:layout_constraintTop_toBottomOf="@+id/eventTimeTV"
+        tools:text="Main Auditorium" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
+        android:id="@+id/autoViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"

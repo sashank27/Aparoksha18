@@ -12,6 +12,7 @@ import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.fragment_map.*
+import kotlinx.coroutines.experimental.launch
 import org.aparoksha.app18.R
 
 
@@ -43,11 +44,6 @@ class MapFragment : Fragment() {
         return view
     }
 
-
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
 
     override fun onResume() {
         mapView.onResume()

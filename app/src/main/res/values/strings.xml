@@ -9,4 +9,6 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_info">InfoActivity</string>
     <string name="title_activity_updates">UpdatesActivity</string>
+    <string name="contact_team">Contact Team Aparoksha for Organizers</string>
+    <string name="sign_in_hint">Sign in to experience Aparoksha</string>
 </resources>
