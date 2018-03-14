@@ -3,6 +3,11 @@
     <color name="colorPrimary">#1c2031</color>
     <color name="colorPrimaryDark">#1c2031</color>
     <color name="colorAccent">#3fffc5</color>
+
+    <color name="pink">#fff082f4</color>
+    <color name="blue">#ff38dbff</color>
+    <color name="green">#ffb2ff82</color>
+
     <color name="transparent">#00000000</color>
-    <color name="white">#fff</color>
+    <color name="white">#ffffffff</color>
 </resources>
