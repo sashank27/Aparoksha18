@@ -38,12 +38,6 @@ class EventDetailActivity : AppCompatActivity() {
             }
         })
 
-        if(eventID == 113L)
-        {
-            Log.d("url",event.imageUrl)
-            Log.d("fbLink",event.facebookEventLink)
-
-        }
         if (eventID != 0L) setEventDetails()
         setViewPager(eventID)
     }
