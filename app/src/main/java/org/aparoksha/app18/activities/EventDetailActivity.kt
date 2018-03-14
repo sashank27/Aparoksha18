@@ -16,6 +16,7 @@ import org.aparoksha.app18.GlideApp
 import org.aparoksha.app18.adapters.EventDetailViewPagerAdapter
 import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.viewModels.AppViewModel
+import org.jetbrains.anko.toast
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,11 +31,16 @@ class EventDetailActivity : AppCompatActivity() {
         val eventID = intent.getLongExtra("id",0)
 
         val eventViewModel = AppViewModel.create(application)
-        if (eventViewModel.getEventById(eventID) != null) event = eventViewModel.getEventById(eventID)!!
+        eventViewModel.getEvents()
 
-        eventViewModel.event.observe(this, Observer {
-            it?.let{
-                event = it
+        eventViewModel.events.observe(this, Observer {
+            it?.let {
+                val temp = it.find { it.id == eventID }
+                if (it.find { temp?.id== eventID }!= null)
+                    event = temp!!
+                if (eventID != 0L)
+                    setEventDetails()
+                setViewPager(eventID)
             }
         })
 
@@ -44,8 +50,6 @@ class EventDetailActivity : AppCompatActivity() {
             Log.d("fbLink",event.facebookEventLink)
 
         }
-        if (eventID != 0L) setEventDetails()
-        setViewPager(eventID)
     }
 
     private fun setViewPager(eventID: Long) {

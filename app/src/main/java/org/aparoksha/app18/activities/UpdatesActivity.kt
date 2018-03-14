@@ -24,6 +24,7 @@ class UpdatesActivity : AppCompatActivity() {
 
         initBottomNavigation()
     }
+
     private fun initBottomNavigation() {
 
         val homeItem = AHBottomNavigationItem("Home", R.drawable.ic_home_black_24dp)

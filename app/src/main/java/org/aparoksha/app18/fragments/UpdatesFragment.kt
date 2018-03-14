@@ -18,6 +18,7 @@ import org.aparoksha.app18.R
 /**
  * Created by sashank on 4/3/18.
  */
+
 class UpdatesFragment :Fragment() {
 
     private lateinit var adapter : NotificationAdapter
@@ -50,7 +51,7 @@ class UpdatesFragment :Fragment() {
 
         val isEventSpecific = arguments.getBoolean("isEvent")
 
-        val ref = FirebaseDatabase.getInstance().getReference("notifications")
+        val ref = FirebaseDatabase.getInstance().getReference("verifiedNotifs")
         var query: Query = ref
 
         if (isEventSpecific) {
