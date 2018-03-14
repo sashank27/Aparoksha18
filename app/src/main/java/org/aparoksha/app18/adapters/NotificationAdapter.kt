@@ -1,4 +1,4 @@
-package org.aparoksha.app18
+package org.aparoksha.app18.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import android.widget.TextView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import kotlinx.android.synthetic.main.notification_container.view.*
+import org.aparoksha.app18.Notification
+import org.aparoksha.app18.R
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,6 +37,14 @@ class NotificationAdapter(options: FirebaseRecyclerOptions<Notification>,
 
             itemView.titleTV.text = notification.title
             itemView.descriptionTV.text = notification.description
+
+            val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
+            calendar.timeInMillis = notification.timestamp.times(1000L)
+
+            val sdf = SimpleDateFormat("MMM d, hh:mm a")
+            sdf.timeZone = TimeZone.getTimeZone("Asia/India")
+
+            itemView.timeTV.text = sdf.format(calendar.time)
         }
     }
 
