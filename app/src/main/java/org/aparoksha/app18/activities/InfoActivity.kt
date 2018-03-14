@@ -46,7 +46,7 @@ class InfoActivity : AppCompatActivity() {
                     1 -> startActivity<EventsActivity>()
                     2 -> startActivity<MapActivity>()
                     3 -> startActivity<UpdatesActivity>()
-                    //4 -> startActivity<InfoActivity>()
+                    4 -> return@setOnTabSelectedListener true
                 }
                 finish()
                 return@setOnTabSelectedListener true

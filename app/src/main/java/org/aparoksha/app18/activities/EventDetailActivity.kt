@@ -43,13 +43,6 @@ class EventDetailActivity : AppCompatActivity() {
                 setViewPager(eventID)
             }
         })
-
-        if(eventID == 113L)
-        {
-            Log.d("url",event.imageUrl)
-            Log.d("fbLink",event.facebookEventLink)
-
-        }
     }
 
     private fun setViewPager(eventID: Long) {

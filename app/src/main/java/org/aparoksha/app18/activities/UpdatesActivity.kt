@@ -51,7 +51,7 @@ class UpdatesActivity : AppCompatActivity() {
                     0 -> startActivity<MainActivity>()
                     1 -> startActivity<EventsActivity>()
                     2 -> startActivity<MapActivity>()
-                    //3 -> startActivity<UpdatesActivity>()
+                    3 -> return@setOnTabSelectedListener true
                     4 -> startActivity<InfoActivity>()
                 }
                 finish()

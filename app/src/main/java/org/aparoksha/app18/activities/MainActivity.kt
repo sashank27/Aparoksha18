@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity(), FragNavController.RootFragmentListener
 
             setOnTabSelectedListener { position, _ ->
                 when (position) {
-                    //0 -> startActivity<MainActivity>()
+                    0 -> return@setOnTabSelectedListener true
                     1 -> startActivity<EventsActivity>()
                     2 -> startActivity<MapActivity>()
                     3 -> startActivity<UpdatesActivity>()

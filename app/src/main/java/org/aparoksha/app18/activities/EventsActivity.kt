@@ -43,7 +43,7 @@ class EventsActivity : AppCompatActivity() {
             setOnTabSelectedListener { position, _ ->
                 when (position) {
                     0 -> startActivity<MainActivity>()
-                    //1 -> startActivity<EventsActivity>()
+                    1 -> return@setOnTabSelectedListener true
                     2 -> startActivity<MapActivity>()
                     3 -> startActivity<UpdatesActivity>()
                     4 -> startActivity<InfoActivity>()

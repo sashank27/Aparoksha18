@@ -57,6 +57,7 @@ class HomeFragment : Fragment() {
                 activity.finish()
             }
 
+            userUidTV.text = "APK18"
 
            /* val mFirebaseDatabase = FirebaseDatabase.getInstance()
             val userRef = mFirebaseDatabase.getReference("users/"+key)

@@ -44,11 +44,11 @@ class MapActivity : AppCompatActivity() {
                 when (position) {
                     0 -> startActivity<MainActivity>()
                     1 -> startActivity<EventsActivity>()
-                    //2 -> startActivity<MapActivity>()
+                    2 -> return@setOnTabSelectedListener true
                     3 -> startActivity<UpdatesActivity>()
                     4 -> startActivity<InfoActivity>()
                 }
-                finish()
+
                 return@setOnTabSelectedListener true
             }
         }

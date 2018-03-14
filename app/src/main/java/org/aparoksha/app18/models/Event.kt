@@ -9,6 +9,7 @@ data class Event(
         val description: String = "",
         val location: String = "",
         val timestamp: Long = 0,
+        val duration: Long = 0,
         val imageUrl: String = "",
         val categories: List<String> = emptyList(),
         val additionalInfo: List<String> = emptyList(),
