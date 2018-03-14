@@ -73,7 +73,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 val eventsNew = fetchedEvents.await()
                 val finalEvents = eventsNew.map {
-                    Event(it.id,it.name,it.description,it.location,it.timestamp + ((330*60)),it.duration,it.imageUrl,it.categories,it.additionalInfo,it.facebookEventLink,it.organizers)
+                    Event(it.id,it.name,it.description,it.location,it.timestamp + (330)*60,it.duration,it.imageUrl,it.categories,it.additionalInfo,it.facebookEventLink,it.organizers)
                 }
                 events.value = finalEvents
                 appDb.storeEvents(finalEvents)

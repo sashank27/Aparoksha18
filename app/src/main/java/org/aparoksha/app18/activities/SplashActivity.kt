@@ -3,9 +3,11 @@ package org.aparoksha.app18.activities
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.squareup.moshi.Moshi
+import kotlinx.android.synthetic.main.activity_splash.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.aparoksha.app18.utils.AppDB
@@ -22,24 +24,9 @@ class SplashActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        sharedPrefs = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
-
-        /*animationView.setAnimation("loading_spinner.json")
-        animationView.playAnimation()
-        animationView.loop(true)*/
-
-        when {
-            isNetworkConnectionAvailable() -> {
-                fetchLatestData()
-            }
-            !sharedPrefs.getBoolean("firstrun", true) -> {
-                showFinishedAnimation()
-            }
-            else -> {
-                //animationView.cancelAnimation()
-                showAlert(this)
-            }
-        }
+        val path = "android.resource://" + packageName + "/" + R.raw.splash_video
+        splash_video.setVideoURI(Uri.parse(path))
+        splash_video.start()
     }
 
     private fun fetchLatestData() {

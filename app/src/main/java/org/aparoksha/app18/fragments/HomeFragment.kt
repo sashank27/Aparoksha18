@@ -69,12 +69,17 @@ class HomeFragment : Fragment() {
                             userUidTV.text = user.id
                         val text = user.id
                         if(!text.equals("")) {
+                            val data = "{\n" +
+                                    "\t\"id\":" + user.id + ",\n" +
+                                    "\t\"name\":" + user.name + ",\n" +
+                                    "\t\"email\":" + user.email +"\n" +
+                                    "}"
                             val multiFormatWriter = MultiFormatWriter()
 
                             try {
                                 val bitmap = BarcodeEncoder()
                                         .createBitmap(multiFormatWriter
-                                                .encode(text, BarcodeFormat.QR_CODE, 300, 300))
+                                                .encode(data, BarcodeFormat.QR_CODE, 300, 300))
                                 userQRcode.setImageBitmap(bitmap)
                             } catch (e: WriterException) {
                                 e.printStackTrace()

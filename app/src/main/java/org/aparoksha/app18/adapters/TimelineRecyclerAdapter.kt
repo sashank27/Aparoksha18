@@ -54,6 +54,7 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<TimelineRecyclerAdapter.Tim
                 } else {
                     calendar.timeInMillis = event.timestamp.times(1000L)
 
+                    eventDateTV.visibility = View.VISIBLE
                     var sdf = SimpleDateFormat("MMMM d")
                     sdf.timeZone = TimeZone.getTimeZone("Asia/India")
                     eventDateTV.text = sdf.format(calendar.time)

@@ -33,6 +33,8 @@ class EventDetailActivity : AppCompatActivity() {
         val eventViewModel = AppViewModel.create(application)
         eventViewModel.getEvents(this,false)
 
+        setViewPager(eventID)
+
         eventViewModel.events.observe(this, Observer {
             it?.let {
                 val temp = it.find { it.id == eventID }
@@ -56,7 +58,7 @@ class EventDetailActivity : AppCompatActivity() {
         eventTitleTV.text = event.name
 
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
-        if (event.timestamp < 100L) {
+        if (event.timestamp < 20000L) {
             eventTimeTV.text = "Online Event"
             eventLocationTV.text = "Online"
         } else {
@@ -69,7 +71,6 @@ class EventDetailActivity : AppCompatActivity() {
             eventLocationTV.text = event.location
         }
 
-        if (event.imageUrl != "") {
             GlideApp.with(this)
                     .load(event.imageUrl)
                     .placeholder(R.drawable.logo)
@@ -92,7 +93,6 @@ class EventDetailActivity : AppCompatActivity() {
 
                         }
                     })
-        }
 
         /*reminderRL.setOnClickListener({
             if ((event.timestamp - 330 * 60) > System.currentTimeMillis() / 1000L) {
