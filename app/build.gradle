@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 26
@@ -14,6 +15,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
     buildTypes {
         release {
@@ -39,8 +43,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-moshi:2.3.0'
     implementation 'com.github.rehacktive:waspdb:1.1.1'
     implementation 'android.arch.lifecycle:extensions:1.1.0'
-
-    implementation 'pl.hypeapp:materialtimelineview:1.0'
     implementation 'com.github.vipulasri:timelineview:1.0.6'
     implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
     implementation 'com.ncapdevi:frag-nav:2.4.0'
@@ -57,12 +59,14 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-database:3.1.0'
     implementation 'com.firebaseui:firebase-ui-auth:3.1.0'
     implementation 'com.google.android.gms:play-services-maps:11.4.2'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
+        transitive = true
+    }
 
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
 
     implementation 'jp.wasabeef:glide-transformations:3.0.1'
     implementation 'com.github.bumptech.glide:glide:4.1.1'
-    implementation 'com.github.bloderxd:deck:0.1'
     kapt 'com.github.bumptech.glide:compiler:4.1.1'
 
     testImplementation 'junit:junit:4.12'

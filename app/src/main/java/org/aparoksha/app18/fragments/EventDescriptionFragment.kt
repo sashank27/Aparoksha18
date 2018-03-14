@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,9 +52,7 @@ class EventDescriptionFragment : Fragment() {
                 descriptionTV.text = event.description
                 facebookLinkTV.text = event.facebookEventLink
 
-                if (event.facebookEventLink.isBlank()) {
-                    facebookLinkLayout.visibility = View.GONE
-                }
+                facebookLinkLayout.visibility = if (event.facebookEventLink == "") View.GONE else View.VISIBLE
 
                 if (event.additionalInfo.isEmpty()) {
                     additionalInfoLayout.visibility = View.GONE

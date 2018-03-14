@@ -68,15 +68,17 @@ class HomeFragment : Fragment() {
                         if(userUidTV != null)
                             userUidTV.text = user.id
                         val text = user.id
-                        val multiFormatWriter = MultiFormatWriter()
+                        if(!text.equals("")) {
+                            val multiFormatWriter = MultiFormatWriter()
 
-                        try {
-                            val bitmap = BarcodeEncoder()
-                                    .createBitmap(multiFormatWriter
-                                            .encode(text, BarcodeFormat.QR_CODE,300,300))
-                            userQRcode.setImageBitmap(bitmap)
-                        } catch (e : WriterException) {
-                            e.printStackTrace()
+                            try {
+                                val bitmap = BarcodeEncoder()
+                                        .createBitmap(multiFormatWriter
+                                                .encode(text, BarcodeFormat.QR_CODE, 300, 300))
+                                userQRcode.setImageBitmap(bitmap)
+                            } catch (e: WriterException) {
+                                e.printStackTrace()
+                            }
                         }
                     }
                 }
