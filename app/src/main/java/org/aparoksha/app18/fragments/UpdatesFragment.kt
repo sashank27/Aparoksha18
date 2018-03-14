@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import kotlinx.android.synthetic.main.fragment_updates.*
 import org.aparoksha.app18.Notification
-import org.aparoksha.app18.NotificationAdapter
+import org.aparoksha.app18.adapters.NotificationAdapter
 import org.aparoksha.app18.R
 
 /**

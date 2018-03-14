@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
-import com.bumptech.glide.Glide
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot

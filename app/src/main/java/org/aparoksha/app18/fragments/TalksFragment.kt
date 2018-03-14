@@ -26,7 +26,7 @@ class TalksFragment: Fragment() {
 
         val adapter = TalksViewAdapter(activity)
 
-        recyclerview.setNestedScrollingEnabled(true)
+        recyclerview.setNestedScrollingEnabled(false)
         recyclerview.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
         recyclerview.adapter = adapter
 
