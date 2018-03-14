@@ -21,7 +21,8 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<TimelineRecyclerAdapter.Tim
     private var items: List<Event> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeLineViewHolder =
-            TimeLineViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_timeline_line_padding,parent,false),viewType)
+            TimeLineViewHolder(LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_timeline_line_padding,parent,false),viewType)
 
     override fun getItemCount(): Int = items.size
 
@@ -34,8 +35,10 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<TimelineRecyclerAdapter.Tim
     }
 
     fun updateEvents(items: List<Event>) {
-        this.items = items.sortedBy { it.timestamp }
-        notifyDataSetChanged()
+        if(this.items.isEmpty()) {
+            this.items = items.sortedBy { it.timestamp }
+            notifyDataSetChanged()
+        }
     }
 
     class TimeLineViewHolder(itemView: View, viewType: Int) : RecyclerView.ViewHolder(itemView) {
@@ -49,10 +52,11 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<TimelineRecyclerAdapter.Tim
                 eventNameTV.text = event.name
                 val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/India"))
                 if (event.timestamp < 20000L) {
-                    eventDateTV.visibility = View.INVISIBLE
+                    eventDateTV.visibility = View.GONE
                     eventTimeTV.text = "Online Event"
                 } else {
-                    calendar.timeInMillis = event.timestamp.times(1000L)
+                    eventDateTV.visibility = View.VISIBLE
+                    calendar.timeInMillis = event.timestamp * 1000L
 
                     var sdf = SimpleDateFormat("MMMM d")
                     sdf.timeZone = TimeZone.getTimeZone("Asia/India")

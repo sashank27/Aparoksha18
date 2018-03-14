@@ -8,15 +8,12 @@ import android.os.Bundle
 import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.activity_event_detail.*
 import org.aparoksha.app18.R
-import android.graphics.BitmapFactory
-import android.util.Log
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import org.aparoksha.app18.GlideApp
 import org.aparoksha.app18.adapters.EventDetailViewPagerAdapter
 import org.aparoksha.app18.models.Event
 import org.aparoksha.app18.viewModels.AppViewModel
-import org.jetbrains.anko.toast
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,8 +44,8 @@ class EventDetailActivity : AppCompatActivity() {
 
     private fun setViewPager(eventID: Long) {
         navigationStrip.setTitles("Description", "Organizers", "Updates")
-        viewPager.adapter = EventDetailViewPagerAdapter(supportFragmentManager,eventID)
-        navigationStrip.setViewPager(viewPager)
+        autoViewPager.adapter = EventDetailViewPagerAdapter(supportFragmentManager,eventID)
+        navigationStrip.setViewPager(autoViewPager)
     }
 
     private fun setEventDetails() {
