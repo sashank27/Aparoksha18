@@ -14,7 +14,8 @@ data class Event(
         val categories: List<String> = emptyList(),
         val additionalInfo: List<String> = emptyList(),
         val facebookEventLink: String = "",
-        val organizers: List<Organizer> = emptyList()
+        val organizers: List<Organizer> = emptyList(),
+        val coordinates: String = ""
 )
 
 data class Organizer(

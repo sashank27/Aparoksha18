@@ -189,6 +189,7 @@ class MainActivity : AppCompatActivity() {
                                     id = "",
                                     email = currentUser.email!!
                             ))
+                            updateUserData()
                         } else {
                             updateUserData()
                         }

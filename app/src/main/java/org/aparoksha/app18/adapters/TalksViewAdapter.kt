@@ -15,9 +15,9 @@ import org.aparoksha.app18.R
 
 class TalksViewAdapter(val context: Context) : RecyclerView.Adapter<TalksViewAdapter.TalksViewHolder>() {
 
-    private val talksName = arrayOf("Sahil Vaidya", "Dr. Pawan Agarwal", "Varun Agarwal")
-    private val talksImage = arrayOf(R.drawable.talk_sahil, R.drawable.talk_pavan, R.drawable.talk_varun)
-    private val talksTime = arrayOf("16th October", "17th October", "18th October")
+    private val talksName = arrayOf("Sahil Vaidya", "Dr. Pawan Agarwal")
+    private val talksImage = arrayOf(R.drawable.talk_sahil, R.drawable.talk_pavan)
+    private val talksTime = arrayOf("16th October", "17th October")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TalksViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.talk_item,parent,false)
